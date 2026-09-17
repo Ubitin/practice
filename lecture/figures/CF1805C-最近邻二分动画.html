@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CF1805C Place for a Selfie · 最近邻二分 动画</title>
+<style>
+  :root{--bg:#0f1420;--panel:#161d2b;--line:#26314a;--txt:#e6ecf7;--dim:#8fa0bd;
+        --lt:#1d4e79;--ge:#1f5130;--mid:#b7791f;--cand:#5f3dc4;--ok:#2f9e44;--bad:#c92a2a}
+  *{box-sizing:border-box}
+  body{margin:0;padding:20px 22px 40px;background:var(--bg);color:var(--txt);line-height:1.6;
+       font-family:"Microsoft YaHei","Segoe UI",system-ui,sans-serif}
+  h1{font-size:19px;margin:0 0 4px}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:12px}
+  .prob{background:var(--panel);border-left:4px solid #3d6ea5;border-radius:6px;padding:10px 14px;
+        font-size:13.5px;margin-bottom:14px}
+  .prob code{background:#1b2436;padding:1px 5px;border-radius:4px}
+  .head{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;margin-bottom:10px}
+  .head .k{font-size:15px;font-weight:700;color:#ffd43b}
+  .head .b{font-size:14px}
+  .board{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px}
+  .cells{display:flex;gap:6px;flex-wrap:wrap;min-height:74px}
+  .cell{min-width:66px;background:#1d2537;border:1px solid var(--line);border-radius:8px;
+        padding:6px 8px;text-align:center;transition:.22s;position:relative}
+  .cell .idx{font-size:10.5px;color:var(--dim)}
+  .cell .val{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
+  .cell.lt{background:var(--lt);border-color:#4a8cc7}
+  .cell.ge{background:var(--ge);border-color:#51cf66}
+  .cell.out{opacity:.25}
+  .cell.mid{background:var(--mid);border-color:#ffd43b;transform:translateY(-5px) scale(1.06)}
+  .cell.cand{outline:2px dashed var(--cand);outline-offset:2px}
+  .cell.chosen{background:var(--ok);border-color:#69db7c;transform:translateY(-5px) scale(1.08)}
+  .arrow{font-size:11px;color:#ffd43b;position:absolute;left:0;right:0;bottom:-16px}
+  .status{margin:16px 0 8px;background:#111827;border:1px dashed var(--line);border-radius:8px;
+          padding:10px 12px;font-family:Consolas,monospace;font-size:13.5px;min-height:44px}
+  .narration{font-size:13.5px;color:#c9d6ea;border-left:3px solid #3d6ea5;padding-left:10px;margin-bottom:14px}
+  .verdict{font-size:15px;font-weight:700;padding:8px 12px;border-radius:8px;display:inline-block;margin-bottom:14px}
+  .verdict.yes{background:#12351c;color:#69db7c;border:1px solid #2f9e44}
+  .verdict.no{background:#3a1414;color:#ff8787;border:1px solid #c92a2a}
+  .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0 16px}
+  button{background:#22304a;color:var(--txt);border:1px solid var(--line);border-radius:8px;
+         padding:7px 14px;font-size:14px;cursor:pointer;font-family:inherit}
+  button:hover{background:#2c3d5c}
+  button.primary{background:#2f6aa3;border-color:#4a8cc7}
+  input[type=range]{width:130px;vertical-align:middle}
+  .legend{font-size:12px;color:var(--dim);display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px}
+  table{border-collapse:collapse;font-size:13px;margin-top:14px;width:100%;max-width:560px}
+  th,td{border:1px solid var(--line);padding:5px 9px;text-align:left}
+  th{background:#1b2436}
+  .note{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;
+        font-size:13.5px;margin-top:16px}
+  .note b{color:#9ec5ff}
+  code{background:#1b2436;padding:1px 5px;border-radius:4px;font-size:12.5px}
+</style>
+</head>
+<body>
+
+<h1>CF1805C · Place for a Selfie —— 最近邻二分 动画</h1>
+<div class="sub">把"每条抛物线扫一遍所有直线"的 O(n·m) 换成"排序 + 二分找离 b 最近的 k"的 O((n+m) log n)</div>
+
+<div class="prob">
+  判定式:直线 <code>y = kx</code> 与抛物线 <code>y = ax² + bx + c</code> 联立得
+  <code>ax² + (b−k)x + c = 0</code>,无实根 ⟺ <code>(b−k)² &lt; 4ac</code>。
+  左边只和 <code>|b−k|</code> 有关 → <b>只需检查离 b 最近的 k</b>(排序后即 b 的左右邻居)。
+  <br>下面演示:在<b>已排序</b>的 k 数组上二分,找到"第一个 ≥ b"的位置,再检查左右两个候选。
+</div>
+
+<div class="head">
+  <span class="k" id="headTitle"></span>
+  <span class="b" id="headB"></span>
+</div>
+
+<div class="legend">
+  <span><i style="background:#1d4e79"></i>k &lt; b</span>
+  <span><i style="background:#1f5130"></i>k ≥ b</span>
+  <span><i style="background:#b7791f"></i>本轮比较的 mid</span>
+  <span><i style="background:#5f3dc4"></i>候选(虚线框)</span>
+  <span><i style="background:#2f9e44"></i>最终选中的 k</span>
+  <span>变暗 = 已被二分排除</span>
+</div>
+
+<div class="board">
+  <div class="cells" id="cells"></div>
+</div>
+
+<div class="status" id="status"></div>
+<div class="narration" id="narration"></div>
+<div class="verdict" id="verdict" style="display:none"></div>
+
+<div class="controls">
+  <button class="primary" id="play">▶ 播放</button>
+  <button id="step">⏭ 单步</button>
+  <button id="reset">⟲ 重置</button>
+  <label style="font-size:13px">速度 <input type="range" id="speed" min="1" max="10" value="5"></label>
+  <span style="font-size:12px;color:#8fa0bd">快捷键:空格 播放/暂停,→ 单步</span>
+</div>
+
+<table id="summary">
+  <tr><th>抛物线 (a,b,c)</th><th>4ac</th><th>二分结果</th><th>判定</th></tr>
+</table>
+
+<div class="note">
+  <b>为什么只看最近邻就够了:</b>条件等价于 <code>|b−k| &lt; 2√(ac)</code>。
+  若离 b 最近的 k 都不满足,那么 <code>|b−k|</code> 更大的其他 k 只会更远离 b、更不可能满足;
+  反之只要存在满足的 k,离 b 最近的那个必然也满足。<br>
+  <b>哪种情况最容易满足:</b><code>4ac</code> 越大(抛物线开口越"陡"、常数项越大),允许的 <code>|b−k|</code> 越宽,
+  越容易找到合适的直线。<br>
+  <b>实现要点:</b><code>lower_bound(k, b)</code> 得到"第一个 ≥ b"的下标 p,检查 <code>k[p]</code> 与 <code>k[p−1]</code>(注意越界);
+  二分可以用 <code>lower_bound</code>,也可以手写 <code>[lo, hi)</code> 模板。所有运算用 <code>long long</code>:
+  <code>(b−k)²</code> 与 <code>4ac</code> 都可达 4×10¹⁶。
+</div>
+
+<script>
+/* ================= 纯逻辑（可在 node 中独立测试） ================= */
+// 手写 lower_bound：[lo, hi) 半开区间，返回第一个 >= b 的下标
+function lowerBoundTrace(ks, b) {
+  let lo = 0, hi = ks.length;
+  const trace = [];
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    const goLeft = ks[mid] >= b;
+    trace.push({ lo, hi, mid, k: ks[mid], goLeft });
+    if (goLeft) hi = mid; else lo = mid + 1;
+  }
+  return { pos: lo, trace };
+}
+
+// 为每条抛物线生成完整帧序列，并给出判定结果
+function buildFrames(ks, paras) {
+  const frames = [], results = [];
+  paras.forEach((p, pi) => {
+    const { a, b, c } = p, thr = 4 * a * c;
+    frames.push({ pi, phase: 'intro', b,
+      text: `抛物线 a=${a}, b=${b}, c=${c}:需要 (b−k)² < 4ac = ${thr},`
+          + `即 |b−k| < ${Math.sqrt(thr).toFixed(3)}。先二分找离 b 最近的位置。` });
+    const { pos, trace } = lowerBoundTrace(ks, b);
+    trace.forEach(t => frames.push({ pi, phase: 'search', b, lo: t.lo, hi: t.hi, mid: t.mid,
+      k: t.k, goLeft: t.goLeft, pos: null,
+      text: `lo=${t.lo}, hi=${t.hi} → mid=${t.mid}:k[${t.mid}]=${t.k} `
+          + (t.goLeft ? `≥ b=${b} → 往左找:hi=${t.mid}` : `< b=${b} → 往右找:lo=${t.mid + 1}`) }));
+    const cands = [];
+    if (pos < ks.length) cands.push(pos);
+    if (pos - 1 >= 0) cands.push(pos - 1);
+    frames.push({ pi, phase: 'cands', b, pos, cands,
+      text: `二分结束:pos=${pos} 是"第一个 ≥ b"的下标 → 只需检查候选 k[${cands.join('}] 与 k[')}]`
+          + `(其余 k 都比它们更远离 b)` });
+    let verdict = null, chosen = null; const checks = [];
+    for (const ci of cands) {
+      const d = b - ks[ci], lhs = d * d, pass = lhs < thr;
+      checks.push({ ci, k: ks[ci], d, lhs, pass });
+      frames.push({ pi, phase: 'check', b, ci, k: ks[ci], d, lhs, thr, pass, cands, pos,
+        text: `检查 k=${ks[ci]}:(b−k)² = ${lhs} ${pass ? '<' : '≥'} 4ac = ${thr} → `
+            + (pass ? '满足 ✔ 这条直线不与抛物线相交' : '不满足 ✘ 换下一个候选') });
+      if (pass) { verdict = true; chosen = ks[ci]; break; }
+    }
+    if (verdict === null) verdict = false;
+    frames.push({ pi, phase: 'verdict', b, verdict, chosen, checks, cands, pos,
+      text: verdict ? `YES —— 输出 k = ${chosen}` : 'NO —— 两个候选都不满足,更远的 k 更不可能满足' });
+    results.push({ a, b, c, thr, pos, cands, verdict, chosen, checks });
+  });
+  return { frames, results };
+}
+
+// 暴力参考（用于 node 校验）
+function bruteVerdict(ks, a, b, c) {
+  return ks.some(k => (b - k) * (b - k) < 4 * a * c);
+}
+
+const API = { buildFrames, lowerBoundTrace, bruteVerdict };
+if (typeof module !== 'undefined' && module.exports) module.exports = API;
+
+/* ================= 界面 ================= */
+if (typeof document !== 'undefined') {
+  const KS = [-9, -4, -1, 2, 3, 7, 12, 15, 21, 30];
+  const PARAS = [
+    { a: 1, b: 0,   c: 1 },      // 近邻 k=-1:1 < 4 ✔
+    { a: 1, b: 0,   c: 100 },    // 4ac=400,近邻够近 ✔
+    { a: 1, b: 16,  c: 1 },      // 近邻 k=15:1 < 4 ✔
+    { a: 1, b: 25,  c: 1 },      // 近邻 21/30 都太远 → NO
+    { a: 1, b: -30, c: 1 },      // 全部太远 → NO
+  ];
+  const { frames, results } = buildFrames(KS, PARAS);
+  const $ = (id) => document.getElementById(id);
+  const cells = [];
+  let i = 0, timer = null;
+
+  KS.forEach((v, idx) => {
+    const d = document.createElement('div');
+    d.className = 'cell';
+    d.innerHTML = `<div class="idx">k[${idx}]</div><div class="val">${v}</div>`;
+    $('cells').appendChild(d);
+    cells.push(d);
+  });
+
+  // 结果表
+  results.forEach(r => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>a=${r.a}, b=${r.b}, c=${r.c}</td><td>${r.thr}</td><td>pos=${r.pos}</td>`
+      + `<td style="color:${r.verdict ? '#69db7c' : '#ff8787'}">`
+      + (r.verdict ? `YES · k=${r.chosen}` : 'NO') + '</td>';
+    $('summary').appendChild(tr);
+  });
+
+  function render() {
+    const f = frames[Math.min(i, frames.length - 1)];
+    const b = f.b, showB = f.phase !== 'verdict' || true;
+    // 单元格状态
+    KS.forEach((v, idx) => {
+      let cls = 'cell';
+      if (idx < (f.lo ?? 0) || idx >= (f.hi ?? KS.length)) cls += ' out';   // 二分已排除
+      if (v < b) cls += ' lt'; else cls += ' ge';
+      if (f.mid === idx) cls += ' mid';
+      if (f.cands && f.cands.includes(idx) && f.phase !== 'verdict') cls += ' cand';
+      if (f.phase === 'verdict' && f.chosen === v) cls += ' chosen';
+      if (f.ci === idx) cls += ' mid';
+      cells[idx].className = cls;
+    });
+
+    $('headTitle').textContent = `抛物线 ${f.pi + 1}/${PARAS.length}`;
+    $('headB').innerHTML = `b = <b style="color:#ffd43b">${b}</b>`
+      + (f.thr ? ` &nbsp; 4ac = ${f.thr}` : '');
+
+    $('status').textContent = f.text;
+
+    const narr = {
+      intro:  'look:蓝格是 k < b,绿格是 k ≥ b。我们要找的分界点,就是"第一个 ≥ b"的位置。',
+      search: '每比较一次 k[mid],就把搜索区间砍掉一半:每次区间长度都减半,所以最多 log₂(10) ≈ 4 步就定位到边界。',
+      cands:  '边界两侧各有一个候选——离 b 最近的 k 只可能是这两个,线扫全表纯属浪费。',
+      check:  '判别式比较:(b−k)² 与 4ac。左边是"距离的平方",右边越大越容易满足。',
+      verdict:'若两个候选都不满足,其他 k 离 b 更远、(b−k)² 更大,只会更差 → 直接输出 NO。'
+    }[f.phase];
+    $('narration').textContent = narr;
+
+    const v = $('verdict');
+    if (f.phase === 'verdict') {
+      v.style.display = 'inline-block';
+      v.className = 'verdict ' + (f.verdict ? 'yes' : 'no');
+      v.textContent = f.verdict ? `YES  →  k = ${f.chosen}` : 'NO';
+    } else {
+      v.style.display = 'none';
+    }
+  }
+
+  function next() { if (i < frames.length - 1) { i++; render(); } else pause(); }
+  function play() {
+    if (i >= frames.length - 1) i = 0;
+    $('play').textContent = '⏸ 暂停';
+    timer = setInterval(next, Math.round(1400 / +$('speed').value));
+  }
+  function pause() { clearInterval(timer); timer = null; $('play').textContent = '▶ 播放'; }
+
+  render();
+  $('play').onclick = () => (timer ? pause() : play());
+  $('step').onclick = () => { pause(); next(); };
+  $('reset').onclick = () => { pause(); i = 0; render(); };
+  $('speed').oninput = () => { if (timer) { pause(); play(); } };
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') { e.preventDefault(); timer ? pause() : play(); }
+    if (e.code === 'ArrowRight') { pause(); next(); }
+  });
+}
+</script>
+</body>
+</html>

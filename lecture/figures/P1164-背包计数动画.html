@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P1164 小A点菜 · 0/1 背包计数 动画讲解</title>
+<style>
+  :root{
+    --bg:#0f1420; --panel:#161d2b; --line:#26314a; --txt:#e6ecf7; --dim:#8fa0bd;
+    --src:#2b6cb0; --dst:#b7791f; --ok:#2f9e44; --bad:#c92a2a; --cell:#1d2537;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:20px 22px 40px;background:var(--bg);color:var(--txt);
+       font-family:"Microsoft YaHei","Segoe UI",system-ui,sans-serif;line-height:1.6}
+  h1{font-size:19px;margin:0 0 6px}
+  .prob{background:var(--panel);border-left:4px solid #3d6ea5;border-radius:6px;
+        padding:10px 14px;margin:10px 0 16px;font-size:14px}
+  .prob b{color:#ffd43b}
+  .dishes{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+  .dish{background:var(--cell);border:1px solid var(--line);border-radius:8px;
+        padding:6px 12px;font-size:14px;transition:.25s}
+  .dish small{color:var(--dim);display:block;font-size:11px;line-height:1.2}
+  .dish.cur{background:#2f9e44;border-color:#51cf66;color:#08130a;font-weight:700;transform:translateY(-2px)}
+  .dish.used{opacity:.45}
+  .board{display:grid;gap:12px}
+  .row{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .row h3{margin:0 0 8px;font-size:14px;display:flex;gap:8px;align-items:center}
+  .tag{font-size:11px;padding:1px 7px;border-radius:20px;font-weight:400}
+  .tag.ok{background:#12351c;color:#69db7c;border:1px solid #2f9e44}
+  .tag.bad{background:#3a1414;color:#ff8787;border:1px solid #c92a2a}
+  .cells{display:flex;gap:8px;flex-wrap:wrap}
+  .cell{background:var(--cell);border:1px solid var(--line);border-radius:8px;
+        min-width:78px;padding:6px 8px;text-align:center;transition:transform .18s,background .25s,border-color .25s}
+  .cell .k{font-size:11px;color:var(--dim)}
+  .cell .v{font-size:19px;font-weight:700;font-variant-numeric:tabular-nums}
+  .cell.src{background:#173a5e;border-color:var(--src);transform:translateY(-3px)}
+  .cell.dst{background:#4a3410;border-color:var(--dst);transform:translateY(-3px)}
+  .cell.src.dst{background:#5b3a1a}
+  .cell.bump .v{animation:bump .45s ease}
+  @keyframes bump{0%{transform:scale(1.5);color:#ffd43b}100%{transform:scale(1)}}
+  .status{margin:14px 0 6px;font-size:14px;font-family:Consolas,monospace;
+          background:#111827;border:1px dashed var(--line);border-radius:8px;padding:10px 12px;min-height:46px}
+  .status .eq{color:#ffd43b;font-weight:700}
+  .narration{font-size:13.5px;color:#c9d6ea;margin:8px 0 14px;padding-left:10px;border-left:3px solid #3d6ea5}
+  .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+  button{background:#22304a;color:var(--txt);border:1px solid var(--line);border-radius:8px;
+         padding:7px 14px;font-size:14px;cursor:pointer;font-family:inherit}
+  button:hover{background:#2c3d5c}
+  button.primary{background:#2f6aa3;border-color:#4a8cc7}
+  input[type=range]{width:130px;vertical-align:middle}
+  .legend{font-size:12px;color:var(--dim);display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px}
+  .notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:18px}
+  .note{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13.5px}
+  .note h4{margin:0 0 6px;font-size:14px;color:#9ec5ff}
+  table{border-collapse:collapse;margin-top:16px;font-size:13.5px;width:100%;max-width:620px}
+  th,td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+  th{background:#1b2436}
+  code{background:#1b2436;padding:1px 5px;border-radius:4px;font-size:12.5px}
+  .ok{color:#69db7c;font-weight:700}.bad{color:#ff8787;font-weight:700}
+</style>
+</head>
+<body>
+
+<h1>P1164 小A点菜 · 0/1 背包计数 —— 动画讲解</h1>
+<div class="prob">
+  4 道菜,价格 <b>1 1 2 2</b>;口袋里有 <b>4 元</b>。每道菜<b>最多点一次</b>,求<b>恰好花完 4 元</b>的点法数。
+  <br>答案:3 种 —— {1,1,2(第3道)}、{1,1,2(第4道)}、{2(第3道),2(第4道)}。
+</div>
+
+<div class="dishes" id="dishes"></div>
+
+<div class="legend">
+  <span><i style="background:#2b6cb0"></i>来源格子 dp[j-x]（被读）</span>
+  <span><i style="background:#b7791f"></i>目标格子 dp[j]（被写）</span>
+  <span>左表按正确顺序、右表按错误顺序,同步演示同一道菜的更新</span>
+</div>
+
+<div class="board">
+  <div class="row">
+    <h3>① 倒序 j = m → x <span class="tag ok">正确 · 每道菜只用一次</span></h3>
+    <div class="cells" id="cellsDesc"></div>
+  </div>
+  <div class="row">
+    <h3>② 正序 j = x → m <span class="tag bad">错误 · 退化成完全背包</span></h3>
+    <div class="cells" id="cellsAsc"></div>
+  </div>
+</div>
+
+<div class="status" id="status"></div>
+<div class="narration" id="narration"></div>
+
+<div class="controls">
+  <button class="primary" id="play">▶ 播放</button>
+  <button id="step">⏭ 单步</button>
+  <button id="reset">⟲ 重置</button>
+  <label style="font-size:13px">速度 <input type="range" id="speed" min="1" max="10" value="6"></label>
+  <span style="font-size:12px;color:#8fa0bd">快捷键:空格 播放/暂停,→ 单步</span>
+</div>
+
+<table>
+  <tr><th>遍历顺序</th><th>dp[4] 最终值</th><th>结论</th></tr>
+  <tr><td><code>for (j = m; j &gt;= x; --j)</code> 倒序</td><td id="finDesc" class="ok">3</td>
+      <td>✔ 读到的 dp[j-x] 是"没用过这道菜"的旧值</td></tr>
+  <tr><td><code>for (j = x; j &lt;= m; ++j)</code> 正序</td><td id="finAsc" class="bad">14</td>
+      <td>✘ dp[j-x] 本轮已被更新 → 同一道菜被点了多次</td></tr>
+</table>
+
+<div class="notes">
+  <div class="note">
+    <h4>dp 数组的含义</h4>
+    <code>dp[j]</code> = 用"已经考虑过的那些菜"、<b>恰好</b>凑出 <code>j</code> 元的方案数。
+    每加入一道价格 <code>x</code> 的菜:<code>dp[j] += dp[j-x]</code> —— 新增的方案 = "不点这道菜时能凑出 <code>j-x</code>"的那些方案,再点上这道菜。
+  </div>
+  <div class="note">
+    <h4>为什么 dp[0] = 1</h4>
+    凑 0 元只有一种办法:<b>什么都不点</b>。如果写成 0,后面所有数都会是 0(乘 0 效应),整个 DP 报废。
+  </div>
+  <div class="note">
+    <h4>为什么必须倒序</h4>
+    倒序时 <code>dp[j-x]</code> 还没被本轮更新,代表"没点这道菜"的世界;正序时它已经被本轮改过,等于允许"同一道菜点两次、三次…",所以正序算出来是 <b>14</b> 而不是 3。
+  </div>
+  <div class="note">
+    <h4>复杂度 / 与手册对照</h4>
+    O(n·m) ≤ 100 × 10000 = 10⁶,秒过;相比"枚举所有子集"的 O(2ⁿ) 是降维打击。
+    对照 <code>机试代码模板速查手册</code> §5:求最大值用 <code>max(dp[j], dp[j-x]+v[i])</code>,<b>计数</b>则用 <code>dp[j] += dp[j-x]</code> 且 <code>dp[0]=1</code>,两者都必须倒序。
+  </div>
+</div>
+
+<script>
+/* ============ 纯逻辑（可在 node 中独立测试） ============ */
+function makeRange(from, to) {
+  const r = [];
+  if (from <= to) { for (let v = from; v <= to; ++v) r.push(v); }
+  else            { for (let v = from; v >= to; --v) r.push(v); }
+  return r;
+}
+
+// 生成完整步骤序列：order = 'desc'(倒序/正确) 或 'asc'(正序/错误)
+function buildSteps(order, n, m, a) {
+  const dp = new Array(m + 1).fill(0);
+  dp[0] = 1;                                   // 什么都不点 = 1 种方案
+  const steps = [];
+  for (let i = 0; i < n; ++i) {
+    const x = a[i];
+    // 买不起的菜（x > m）：任何 j 都无法更新，直接跳过
+    const js = (x > m) ? []
+             : (order === 'desc' ? makeRange(m, x) : makeRange(x, m));
+    for (let t = 0; t < js.length; ++t) {
+      const j = js[t], src = j - x;
+      const before = dp[j], add = dp[src];
+      dp[j] = before + add;
+      steps.push({ i, x, j, src, before, add, after: dp[j], t, total: js.length,
+                   snapshot: dp.slice() });
+    }
+  }
+  return { steps, final: dp.slice() };
+}
+
+const SIM = { buildSteps, makeRange };
+if (typeof module !== 'undefined' && module.exports) module.exports = SIM;
+
+/* ============ 界面与动画 ============ */
+if (typeof document !== 'undefined') {
+  const N = 4, M = 4, PRICES = [1, 1, 2, 2];
+  const runDesc = buildSteps('desc', N, M, PRICES);
+  const runAsc  = buildSteps('asc',  N, M, PRICES);
+  const TOTAL = Math.max(runDesc.steps.length, runAsc.steps.length);
+
+  const $ = (id) => document.getElementById(id);
+  const cellsDesc = [], cellsAsc = [];
+  let idx = 0, timer = null;
+
+  function initialDp() { const d = new Array(M + 1).fill(0); d[0] = 1; return d; }
+  function stateOf(run) { return idx === 0 ? initialDp() : run.steps[Math.min(idx, run.steps.length) - 1].snapshot; }
+
+  function buildDishes() {
+    const box = $('dishes');
+    PRICES.forEach((p, i) => {
+      const d = document.createElement('div');
+      d.className = 'dish'; d.id = 'dish' + i;
+      d.innerHTML = '第 ' + (i + 1) + ' 道<small>价格 ' + p + '</small>';
+      box.appendChild(d);
+    });
+  }
+
+  function buildCells(box, arr) {
+    for (let j = 0; j <= M; ++j) {
+      const c = document.createElement('div');
+      c.className = 'cell';
+      c.innerHTML = '<div class="k">dp[' + j + ']</div><div class="v">0</div>';
+      box.appendChild(c);
+      arr.push(c);
+    }
+  }
+
+  function paint(arr, dp, hi) {
+    for (let j = 0; j <= M; ++j) {
+      const v = arr[j].querySelector('.v');
+      if (v.textContent !== String(dp[j])) {
+        v.textContent = dp[j];
+        arr[j].classList.remove('bump'); void arr[j].offsetWidth; arr[j].classList.add('bump');
+      }
+      arr[j].classList.toggle('src', hi && hi.src === j);
+      arr[j].classList.toggle('dst', hi && hi.dst === j);
+    }
+  }
+
+  function render() {
+    const dpD = stateOf(runDesc), dpA = stateOf(runAsc);
+    const sD = idx < runDesc.steps.length ? runDesc.steps[idx] : null;
+    const sA = idx < runAsc.steps.length ? runAsc.steps[idx] : null;
+
+    paint(cellsDesc, dpD, sD ? { src: sD.src, dst: sD.j } : null);
+    paint(cellsAsc,  dpA, sA ? { src: sA.src, dst: sA.j } : null);
+
+    PRICES.forEach((p, i) => {
+      const el = $('dish' + i);
+      const cur = sD ? sD.i : N - 1;
+      el.className = 'dish' + (i === cur && idx < TOTAL ? ' cur' : (i < cur ? ' used' : ''));
+    });
+
+    if (idx < TOTAL && sD) {
+      $('status').innerHTML =
+        '菜 ' + (sD.i + 1) + '(价格 ' + sD.x + ') · 本菜第 ' + (sD.t + 1) + '/' + sD.total + ' 步 · ' +
+        '<span class="eq">dp[' + sD.j + '] += dp[' + sD.src + ']</span> = ' +
+        sD.before + ' + ' + sD.add + ' = ' + sD.after +
+        '　　　【倒序表】j: ' + makeRange(M, sD.x).slice(0, sD.t + 1).join(' ← ') +
+        '　|　【正序表】j: ' + makeRange(sD.x, M).slice(0, sD.t + 1).join(' → ');
+      $('narration').textContent = sD.i === 0 && sD.t === 0
+        ? 'dp[0] = 1:凑 0 元只有"什么都不点"这一种方案。现在开始逐道菜更新,注意两张表的 j 走的方向相反。'
+        : (sD.t < sD.total - 1
+            ? '倒序表从 m 往小走:读到 dp[' + sD.src + '] 时它还没被本轮改过 → 这道菜只用一次。'
+            : '这一道菜处理完了,继续下一道。');
+    } else {
+      const d = runDesc.final[M], a = runAsc.final[M];
+      $('status').innerHTML = '演示结束:**倒序 dp[4] = ' + d + '** ✅　|　**正序 dp[4] = ' + a + '** ❌';
+      $('narration').textContent = '3 种点法与题目答案一致;14 是把同一道菜重复点出来的"假方案"。'
+        + '结论:dp[0] = 1,dp[j] += dp[j - x],j 必须从 m 递减到 x。';
+      $('finDesc').textContent = d; $('finAsc').textContent = a;
+    }
+  }
+
+  function tick() { if (idx < TOTAL) { idx++; render(); } else { pause(); } }
+  function play() {
+    if (idx >= TOTAL) idx = 0;
+    $('play').textContent = '⏸ 暂停';
+    const speed = +$('speed').value;
+    timer = setInterval(tick, Math.round(1200 / speed));
+  }
+  function pause() { clearInterval(timer); timer = null; $('play').textContent = '▶ 播放'; }
+
+  buildDishes(); buildCells($('cellsDesc'), cellsDesc); buildCells($('cellsAsc'), cellsAsc);
+  render();
+
+  $('play').onclick = () => (timer ? pause() : play());
+  $('step').onclick = () => { pause(); if (idx < TOTAL) { idx++; render(); } };
+  $('reset').onclick = () => { pause(); idx = 0; render(); };
+  $('speed').oninput = () => { if (timer) { pause(); play(); } };
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') { e.preventDefault(); timer ? pause() : play(); }
+    if (e.code === 'ArrowRight') { pause(); if (idx < TOTAL) { idx++; render(); } }
+  });
+}
+</script>
+</body>
+</html>

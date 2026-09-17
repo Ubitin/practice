@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="400" viewBox="0 0 1140 400">
+<rect width="1140" height="400" fill="#ffffff"/>
+<defs><marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker><marker id="arwR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/></marker><marker id="arwG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/></marker></defs>
+<text x="28.0" y="40.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="21.0" fill="#0f172a" text-anchor="start" font-weight="700"><tspan>n = 3 的全部 5 条 Dyck 路径（不越过 y = x，允许落在 y = x 上）</tspan></text>
+<text x="28.0" y="68.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.5" fill="#64748b" text-anchor="start" font-weight="400"><tspan>共 C</tspan><tspan font-size="10.1" dy="3.2">3</tspan><tspan font-size="14.5" dy="-3.2">​</tspan><tspan> = 5 条；绿点是路径经过对角线 y = x 的中间点</tspan></text>
+<text x="62.0" y="132.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="15.0" fill="#0f172a" text-anchor="start" font-weight="700"><tspan>① E E E N N N</tspan></text>
+<line x1="62.0" y1="300.0" x2="62.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="104.0" y1="300.0" x2="104.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="146.0" y1="300.0" x2="146.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="188.0" y1="300.0" x2="188.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="62.0" y1="300.0" x2="188.0" y2="300.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="62.0" y1="258.0" x2="188.0" y2="258.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="62.0" y1="216.0" x2="188.0" y2="216.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="62.0" y1="174.0" x2="188.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="62.0" y1="300.0" x2="188.0" y2="300.0" stroke="#475569" stroke-width="1.6" opacity="1.00"/>
+<line x1="62.0" y1="300.0" x2="62.0" y2="174.0" stroke="#475569" stroke-width="1.6" opacity="1.00"/>
+<line x1="62.0" y1="300.0" x2="188.0" y2="174.0" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="7 6" stroke-linecap="round" opacity="1.00"/>
+<polyline points="62.0,300.0 104.0,300.0 146.0,300.0 188.0,300.0 188.0,258.0 188.0,216.0 188.0,174.0" fill="none" stroke="#2563eb" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round" opacity="1.00"/>
+<circle cx="188.0" cy="174.0" r="5.5" fill="#ffffff" stroke="#0f172a" stroke-width="2.0" opacity="1.00"/>
+<text x="125.0" y="336.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.0" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>#E ≥ #N 恒成立</tspan></text>
+<text x="278.0" y="132.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="15.0" fill="#0f172a" text-anchor="start" font-weight="700"><tspan>② E E N E N N</tspan></text>
+<line x1="278.0" y1="300.0" x2="278.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="320.0" y1="300.0" x2="320.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="362.0" y1="300.0" x2="362.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="404.0" y1="300.0" x2="404.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="278.0" y1="300.0" x2="404.0" y2="300.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="278.0" y1="258.0" x2="404.0" y2="258.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="278.0" y1="216.0" x2="404.0" y2="216.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="278.0" y1="174.0" x2="404.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="278.0" y1="300.0" x2="404.0" y2="300.0" stroke="#475569" stroke-width="1.6" opacity="1.00"/>
+<line x1="278.0" y1="300.0" x2="278.0" y2="174.0" stroke="#475569" stroke-width="1.6" opacity="1.00"/>
+<line x1="278.0" y1="300.0" x2="404.0" y2="174.0" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="7 6" stroke-linecap="round" opacity="1.00"/>
+<polyline points="278.0,300.0 320.0,300.0 362.0,300.0 362.0,258.0 404.0,258.0 404.0,216.0 404.0,174.0" fill="none" stroke="#2563eb" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round" opacity="1.00"/>
+<circle cx="404.0" cy="174.0" r="5.5" fill="#ffffff" stroke="#0f172a" stroke-width="2.0" opacity="1.00"/>
+<text x="341.0" y="336.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.0" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>#E ≥ #N 恒成立</tspan></text>
+<text x="494.0" y="132.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="15.0" fill="#0f172a" text-anchor="start" font-weight="700"><tspan>③ E E N N E N</tspan></text>
+<line x1="494.0" y1="300.0" x2="494.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="536.0" y1="300.0" x2="536.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="578.0" y1="300.0" x2="578.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="620.0" y1="300.0" x2="620.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="494.0" y1="300.0" x2="620.0" y2="300.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="494.0" y1="258.0" x2="620.0" y2="258.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="494.0" y1="216.0" x2="620.0" y2="216.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="494.0" y1="174.0" x2="620.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="494.0" y1="300.0" x2="620.0" y2="300.0" stroke="#475569" stroke-width="1.6" opacity="1.00"/>
+<line x1="494.0" y1="300.0" x2="494.0" y2="174.0" stroke="#475569" stroke-width="1.6" opacity="1.00"/>
+<line x1="494.0" y1="300.0" x2="620.0" y2="174.0" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="7 6" stroke-linecap="round" opacity="1.00"/>
+<polyline points="494.0,300.0 536.0,300.0 578.0,300.0 578.0,258.0 578.0,216.0 620.0,216.0 620.0,174.0" fill="none" stroke="#2563eb" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round" opacity="1.00"/>
+<circle cx="578.0" cy="216.0" r="3.8" fill="#16a34a" stroke="#ffffff" stroke-width="1.6" opacity="1.00"/>
+<circle cx="620.0" cy="174.0" r="5.5" fill="#ffffff" stroke="#0f172a" stroke-width="2.0" opacity="1.00"/>
+<text x="557.0" y="336.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.0" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>#E ≥ #N 恒成立</tspan></text>
+<text x="710.0" y="132.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="15.0" fill="#0f172a" text-anchor="start" font-weight="700"><tspan>④ E N E E N N</tspan></text>
+<line x1="710.0" y1="300.0" x2="710.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="752.0" y1="300.0" x2="752.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="794.0" y1="300.0" x2="794.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="836.0" y1="300.0" x2="836.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="710.0" y1="300.0" x2="836.0" y2="300.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="710.0" y1="258.0" x2="836.0" y2="258.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="710.0" y1="216.0" x2="836.0" y2="216.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="710.0" y1="174.0" x2="836.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="710.0" y1="300.0" x2="836.0" y2="300.0" stroke="#475569" stroke-width="1.6" opacity="1.00"/>
+<line x1="710.0" y1="300.0" x2="710.0" y2="174.0" stroke="#475569" stroke-width="1.6" opacity="1.00"/>
+<line x1="710.0" y1="300.0" x2="836.0" y2="174.0" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="7 6" stroke-linecap="round" opacity="1.00"/>
+<polyline points="710.0,300.0 752.0,300.0 752.0,258.0 794.0,258.0 836.0,258.0 836.0,216.0 836.0,174.0" fill="none" stroke="#2563eb" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round" opacity="1.00"/>
+<circle cx="752.0" cy="258.0" r="3.8" fill="#16a34a" stroke="#ffffff" stroke-width="1.6" opacity="1.00"/>
+<circle cx="836.0" cy="174.0" r="5.5" fill="#ffffff" stroke="#0f172a" stroke-width="2.0" opacity="1.00"/>
+<text x="773.0" y="336.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.0" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>#E ≥ #N 恒成立</tspan></text>
+<text x="926.0" y="132.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="15.0" fill="#0f172a" text-anchor="start" font-weight="700"><tspan>⑤ E N E N E N</tspan></text>
+<line x1="926.0" y1="300.0" x2="926.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="968.0" y1="300.0" x2="968.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="1010.0" y1="300.0" x2="1010.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="1052.0" y1="300.0" x2="1052.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="926.0" y1="300.0" x2="1052.0" y2="300.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="926.0" y1="258.0" x2="1052.0" y2="258.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="926.0" y1="216.0" x2="1052.0" y2="216.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="926.0" y1="174.0" x2="1052.0" y2="174.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="926.0" y1="300.0" x2="1052.0" y2="300.0" stroke="#475569" stroke-width="1.6" opacity="1.00"/>
+<line x1="926.0" y1="300.0" x2="926.0" y2="174.0" stroke="#475569" stroke-width="1.6" opacity="1.00"/>
+<line x1="926.0" y1="300.0" x2="1052.0" y2="174.0" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="7 6" stroke-linecap="round" opacity="1.00"/>
+<polyline points="926.0,300.0 968.0,300.0 968.0,258.0 1010.0,258.0 1010.0,216.0 1052.0,216.0 1052.0,174.0" fill="none" stroke="#2563eb" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round" opacity="1.00"/>
+<circle cx="968.0" cy="258.0" r="3.8" fill="#16a34a" stroke="#ffffff" stroke-width="1.6" opacity="1.00"/>
+<circle cx="1010.0" cy="216.0" r="3.8" fill="#16a34a" stroke="#ffffff" stroke-width="1.6" opacity="1.00"/>
+<circle cx="1052.0" cy="174.0" r="5.5" fill="#ffffff" stroke="#0f172a" stroke-width="2.0" opacity="1.00"/>
+<text x="989.0" y="336.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.0" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>#E ≥ #N 恒成立</tspan></text>
+<line x1="62.0" y1="372.0" x2="96.0" y2="372.0" stroke="#2563eb" stroke-width="2.8" opacity="1.00"/>
+<text x="104.0" y="377.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.0" fill="#0f172a" text-anchor="start" font-weight="400"><tspan>Dyck 路径（E 右、N 上）</tspan></text>
+<line x1="330.0" y1="372.0" x2="364.0" y2="372.0" stroke="#94a3b8" stroke-width="2.0" stroke-dasharray="7 6" opacity="1.00"/>
+<text x="372.0" y="377.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.0" fill="#0f172a" text-anchor="start" font-weight="400"><tspan>对角线 y = x</tspan></text>
+<circle cx="560.0" cy="372.0" r="4.2" fill="#16a34a" stroke="none" stroke-width="1.0" opacity="1.00"/>
+<text x="572.0" y="377.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.0" fill="#0f172a" text-anchor="start" font-weight="400"><tspan>允许接触对角线的点</tspan></text>
+</svg>

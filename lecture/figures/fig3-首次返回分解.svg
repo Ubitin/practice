@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620">
+<rect width="900" height="620" fill="#ffffff"/>
+<defs><marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker><marker id="arwR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/></marker><marker id="arwG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/></marker></defs>
+<text x="28.0" y="42.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="21.0" fill="#0f172a" text-anchor="start" font-weight="700"><tspan>按「首次返回对角线」分解：C</tspan><tspan font-size="14.7" dy="3.2">n</tspan><tspan font-size="21.0" dy="-3.2">​</tspan><tspan> = Σ</tspan><tspan font-size="14.7" dy="3.2">k=1..n</tspan><tspan font-size="21.0" dy="-3.2">​</tspan><tspan> C</tspan><tspan font-size="14.7" dy="3.2">k-1</tspan><tspan font-size="21.0" dy="-3.2">​</tspan><tspan> · C</tspan><tspan font-size="14.7" dy="3.2">n-k</tspan><tspan font-size="21.0" dy="-3.2">​</tspan></text>
+<text x="28.0" y="70.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.5" fill="#64748b" text-anchor="start" font-weight="400"><tspan>示例 n = 4、首次返回点 k = 2；把中间段平移后即为规模 k−1 的 Dyck 路径</tspan></text>
+<line x1="150.0" y1="508.0" x2="150.0" y2="164.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="236.0" y1="508.0" x2="236.0" y2="164.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="322.0" y1="508.0" x2="322.0" y2="164.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="408.0" y1="508.0" x2="408.0" y2="164.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="494.0" y1="508.0" x2="494.0" y2="164.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="150.0" y1="508.0" x2="494.0" y2="508.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="150.0" y1="422.0" x2="494.0" y2="422.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="150.0" y1="336.0" x2="494.0" y2="336.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="150.0" y1="250.0" x2="494.0" y2="250.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="150.0" y1="164.0" x2="494.0" y2="164.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="150.0" y1="508.0" x2="494.0" y2="508.0" stroke="#475569" stroke-width="1.6" opacity="1.00"/>
+<line x1="150.0" y1="508.0" x2="150.0" y2="164.0" stroke="#475569" stroke-width="1.6" opacity="1.00"/>
+<line x1="150.0" y1="508.0" x2="494.0" y2="164.0" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="7 6" stroke-linecap="round" opacity="1.00"/>
+<polyline points="150.0,508.0 236.0,508.0 322.0,508.0 322.0,422.0 322.0,336.0" fill="none" stroke="#dc2626" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round" opacity="1.00"/>
+<polyline points="322.0,336.0 408.0,336.0 494.0,336.0 494.0,250.0 494.0,164.0" fill="none" stroke="#2563eb" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round" opacity="1.00"/>
+<text x="150.0" y="528.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>0</tspan></text>
+<text x="236.0" y="528.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>1</tspan></text>
+<text x="322.0" y="528.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>2</tspan></text>
+<text x="408.0" y="528.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>3</tspan></text>
+<text x="494.0" y="528.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>4</tspan></text>
+<text x="138.0" y="512.5" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="end" font-weight="400"><tspan>0</tspan></text>
+<text x="138.0" y="426.5" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="end" font-weight="400"><tspan>1</tspan></text>
+<text x="138.0" y="340.5" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="end" font-weight="400"><tspan>2</tspan></text>
+<text x="138.0" y="254.5" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="end" font-weight="400"><tspan>3</tspan></text>
+<text x="138.0" y="168.5" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="end" font-weight="400"><tspan>4</tspan></text>
+<rect x="230.0" y="416.0" width="98.0" height="98.0" rx="8.0" fill="rgba(220,38,38,0.10)" stroke="#dc2626" stroke-width="1.4" stroke-dasharray="6 5" opacity="1.00"/>
+<circle cx="150.0" cy="508.0" r="5.6" fill="#0f172a" stroke="#ffffff" stroke-width="1.6" opacity="1.00"/>
+<circle cx="322.0" cy="336.0" r="6.4" fill="#dc2626" stroke="#ffffff" stroke-width="1.6" opacity="1.00"/>
+<rect x="178.0" y="297.0" width="130.0" height="23.0" rx="3.0" fill="#ffffff" stroke="none" stroke-width="1.0" opacity="1.00"/>
+<text x="308.0" y="316.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.5" fill="#dc2626" text-anchor="end" font-weight="700"><tspan>首次返回 (k, k)</tspan></text>
+<line x1="314.0" y1="312.0" x2="319.0" y2="327.0" stroke="#dc2626" stroke-width="1.5" marker-end="url(#arwR)" stroke-linecap="round" opacity="1.00"/>
+<text x="252.0" y="546.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="15.0" fill="#dc2626" text-anchor="start" font-weight="700"><tspan>①</tspan></text>
+<text x="506.0" y="342.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="15.0" fill="#2563eb" text-anchor="start" font-weight="700"><tspan>②</tspan></text>
+<rect x="560.0" y="118.0" width="312.0" height="312.0" rx="12.0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.4" opacity="1.00"/>
+<text x="582.0" y="158.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="17.0" fill="#0f172a" text-anchor="start" font-weight="700"><tspan>两段各自计数</tspan></text>
+<circle cx="586.0" cy="187.0" r="3.4" fill="#dc2626" stroke="none" stroke-width="1.0" opacity="1.00"/>
+<text x="598.0" y="192.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.5" fill="#0f172a" text-anchor="start" font-weight="400"><tspan>① 首达段 = E + 下方路径 + N</tspan></text>
+<text x="598.0" y="213.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.5" fill="#dc2626" text-anchor="start" font-weight="400"><tspan>→ 有 C</tspan><tspan font-size="9.4" dy="3.2">k-1</tspan><tspan font-size="13.5" dy="-3.2">​</tspan><tspan> 种（k = 2 → C</tspan><tspan font-size="9.4" dy="3.2">1</tspan><tspan font-size="13.5" dy="-3.2">​</tspan><tspan> = 1）</tspan></text>
+<circle cx="586.0" cy="249.0" r="3.4" fill="#2563eb" stroke="none" stroke-width="1.0" opacity="1.00"/>
+<text x="598.0" y="254.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.5" fill="#0f172a" text-anchor="start" font-weight="400"><tspan>② 尾段 = (k,k) 到 (n,n) 的 Dyck 路径</tspan></text>
+<text x="598.0" y="275.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.5" fill="#2563eb" text-anchor="start" font-weight="400"><tspan>→ 有 C</tspan><tspan font-size="9.4" dy="3.2">n-k</tspan><tspan font-size="13.5" dy="-3.2">​</tspan><tspan> 种（n−k = 2 → C</tspan><tspan font-size="9.4" dy="3.2">2</tspan><tspan font-size="13.5" dy="-3.2">​</tspan><tspan> = 2）</tspan></text>
+<line x1="582.0" y1="320.0" x2="850.0" y2="320.0" stroke="#cbd5e1" stroke-width="1.2" opacity="1.00"/>
+<text x="582.0" y="350.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.5" fill="#0f172a" text-anchor="start" font-weight="400"><tspan>本例：C</tspan><tspan font-size="10.1" dy="3.2">1</tspan><tspan font-size="14.5" dy="-3.2">​</tspan><tspan> × C</tspan><tspan font-size="10.1" dy="3.2">2</tspan><tspan font-size="14.5" dy="-3.2">​</tspan><tspan> = 1 × 2 = 2</tspan></text>
+<text x="582.0" y="376.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.5" fill="#0f172a" text-anchor="start" font-weight="400"><tspan>对所有 k 求和即得</tspan></text>
+<text x="582.0" y="400.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="15.5" fill="#7c3aed" text-anchor="start" font-weight="700"><tspan>C</tspan><tspan font-size="10.8" dy="3.2">n</tspan><tspan font-size="15.5" dy="-3.2">​</tspan><tspan> = Σ C</tspan><tspan font-size="10.8" dy="3.2">k-1</tspan><tspan font-size="15.5" dy="-3.2">​</tspan><tspan> C</tspan><tspan font-size="10.8" dy="3.2">n-k</tspan><tspan font-size="15.5" dy="-3.2">​</tspan></text>
+<text x="150.0" y="570.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.0" fill="#64748b" text-anchor="start" font-weight="400"><tspan>红框内为中间段：去掉首尾的 E、N 后平移 (−1, 0)，即 (0,0) → (k−1, k−1) 的 Dyck 路径</tspan></text>
+</svg>

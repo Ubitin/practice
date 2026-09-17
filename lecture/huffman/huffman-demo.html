@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>哈夫曼编码：贪心合并全过程</title>
+<style>
+  :root { --ink:#0f172a; --muted:#64748b; --line:#cbd5e1; --blue:#2563eb;
+          --orange:#f59e0b; --green:#16a34a; --red:#dc2626; --violet:#7c3aed; }
+  * { box-sizing: border-box; }
+  html,body { margin:0; padding:0; background:#f1f5f9;
+              font-family:"Microsoft YaHei","Segoe UI",Arial,sans-serif; color:var(--ink); }
+  #wrap { width:1000px; margin:0 auto; }
+  h1 { font-size:22px; margin:14px 0 6px; }
+  .sub { color:var(--muted); font-size:13.5px; margin-bottom:10px; }
+  #bar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:10px; }
+  button { font:inherit; font-size:14px; padding:6px 14px; border-radius:8px;
+           border:1.4px solid var(--line); background:#fff; color:var(--ink); cursor:pointer; }
+  button:hover { border-color:var(--blue); color:var(--blue); }
+  button.on { background:var(--blue); border-color:var(--blue); color:#fff; }
+  button.pri { background:var(--green); border-color:var(--green); color:#fff; }
+  input[type=range] { width:110px; vertical-align:middle; }
+  .spacer { flex:1; }
+  #scene { display:block; width:1000px; height:620px; background:#fff;
+           border-radius:12px; border:1px solid var(--line); }
+  body.static #wrap { width:1000px; margin:0; }
+  body.static h1, body.static .sub, body.static #bar { display:none; }
+  body.static #scene { border-radius:0; border:none; }
+  .pop { animation: pop .45s ease-out; transform-box: fill-box; transform-origin: center; }
+  @keyframes pop { from { opacity:.15; transform:scale(.55); } to { opacity:1; transform:scale(1); } }
+  .fade { animation: fade .45s ease-out; }
+  @keyframes fade { from { opacity:0; } to { opacity:1; } }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <h1>哈夫曼编码：贪心合并全过程</h1>
+  <div class="sub">每次取权值最小的两棵子树合并，直到只剩一棵树；左分支记 0、右分支记 1。
+    频率越高的符号越靠近根，码越短。</div>
+  <div id="bar"></div>
+  <svg id="scene" viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg"></svg>
+</div>
+<script>
+const DATA = {"presets": [{"name": "经典 6 符号", "desc": "教材常用例子，总频率 100", "freq": [{"sym": "a", "w": 45}, {"sym": "b", "w": 13}, {"sym": "c", "w": 12}, {"sym": "d", "w": 16}, {"sym": "e", "w": 9}, {"sym": "f", "w": 5}], "total": 100, "H": 2.22, "L": 2.24, "depthMax": 4, "bits": 224, "fixed": 300, "codes": [{"sym": "a", "w": 45, "code": "0"}, {"sym": "b", "w": 13, "code": "101"}, {"sym": "c", "w": 12, "code": "100"}, {"sym": "d", "w": 16, "code": "111"}, {"sym": "e", "w": 9, "code": "1101"}, {"sym": "f", "w": 5, "code": "1100"}], "steps": [{"forest": [{"sym": "f", "w": 5, "sel": true}, {"sym": "e", "w": 9, "sel": true}, {"sym": "c", "w": 12}, {"sym": "b", "w": 13}, {"sym": "d", "w": 16}, {"sym": "a", "w": 45}], "caption": "初始：把 6 个符号各看作一棵单结点树，按权值升序排好。哈夫曼的贪心选择是——每次取权值最小的两棵子树。", "detail": "接下来合并 “f”(5) 与 “e”(9)", "roots": 6, "done": false, "L": 2.24, "H": 2.22, "bits": 224, "fixed": 300, "table": "a:0  d:111  b:101  c:100  e:1101  f:1100"}, {"forest": [{"sym": "c", "w": 12, "sel": true}, {"sym": "b", "w": 13, "sel": true}, {"w": 14, "set": "ef", "l": {"sym": "f", "w": 5}, "r": {"sym": "e", "w": 9}, "new": true}, {"sym": "d", "w": 16}, {"sym": "a", "w": 45}], "caption": "第 1 步：合并最小的两棵子树 “f”(5) + “e”(9) → 新结点 “ef”(14)", "detail": "合并后森林剩 5 棵树；接下来取 “c”(12) 与 “b”(13)", "roots": 5, "done": false, "L": 2.24, "H": 2.22, "bits": 224, "fixed": 300, "table": "a:0  d:111  b:101  c:100  e:1101  f:1100"}, {"forest": [{"w": 14, "set": "ef", "l": {"sym": "f", "w": 5}, "r": {"sym": "e", "w": 9}, "sel": true}, {"sym": "d", "w": 16, "sel": true}, {"w": 25, "set": "bc", "l": {"sym": "c", "w": 12}, "r": {"sym": "b", "w": 13}, "new": true}, {"sym": "a", "w": 45}], "caption": "第 2 步：合并最小的两棵子树 “c”(12) + “b”(13) → 新结点 “bc”(25)", "detail": "合并后森林剩 4 棵树；接下来取 “ef”(14) 与 “d”(16)", "roots": 4, "done": false, "L": 2.24, "H": 2.22, "bits": 224, "fixed": 300, "table": "a:0  d:111  b:101  c:100  e:1101  f:1100"}, {"forest": [{"w": 25, "set": "bc", "l": {"sym": "c", "w": 12}, "r": {"sym": "b", "w": 13}, "sel": true}, {"w": 30, "set": "def", "l": {"w": 14, "set": "ef", "l": {"sym": "f", "w": 5}, "r": {"sym": "e", "w": 9}}, "r": {"sym": "d", "w": 16}, "new": true, "sel": true}, {"sym": "a", "w": 45}], "caption": "第 3 步：合并最小的两棵子树 “ef”(14) + “d”(16) → 新结点 “def”(30)", "detail": "合并后森林剩 3 棵树；接下来取 “bc”(25) 与 “def”(30)", "roots": 3, "done": false, "L": 2.24, "H": 2.22, "bits": 224, "fixed": 300, "table": "a:0  d:111  b:101  c:100  e:1101  f:1100"}, {"forest": [{"sym": "a", "w": 45, "sel": true}, {"w": 55, "set": "bcdef", "l": {"w": 25, "set": "bc", "l": {"sym": "c", "w": 12}, "r": {"sym": "b", "w": 13}}, "r": {"w": 30, "set": "def", "l": {"w": 14, "set": "ef", "l": {"sym": "f", "w": 5}, "r": {"sym": "e", "w": 9}}, "r": {"sym": "d", "w": 16}}, "new": true, "sel": true}], "caption": "第 4 步：合并最小的两棵子树 “bc”(25) + “def”(30) → 新结点 “bcdef”(55)", "detail": "合并后森林剩 2 棵树；接下来取 “a”(45) 与 “bcdef”(55)", "roots": 2, "done": false, "L": 2.24, "H": 2.22, "bits": 224, "fixed": 300, "table": "a:0  d:111  b:101  c:100  e:1101  f:1100"}, {"forest": [{"w": 100, "set": "abcdef", "l": {"sym": "a", "w": 45, "code": "0"}, "r": {"w": 55, "set": "bcdef", "l": {"w": 25, "set": "bc", "l": {"sym": "c", "w": 12, "code": "100"}, "r": {"sym": "b", "w": 13, "code": "101"}}, "r": {"w": 30, "set": "def", "l": {"w": 14, "set": "ef", "l": {"sym": "f", "w": 5, "code": "1100"}, "r": {"sym": "e", "w": 9, "code": "1101"}}, "r": {"sym": "d", "w": 16, "code": "111"}}}, "new": true}], "caption": "第 5 步：合并 “a”(45) + “bcdef”(55) → 根结点 “abcdef”(100)，森林只剩一棵树，编码完成", "detail": "码长随频率反向变化：频率越高码越短", "roots": 1, "done": true, "L": 2.24, "H": 2.22, "bits": 224, "fixed": 300, "table": "a:0  d:111  b:101  c:100  e:1101  f:1100"}]}, {"name": "4 符号（可手算）", "desc": "只有 3 次合并，适合先在纸上推一遍", "freq": [{"sym": "a", "w": 7}, {"sym": "b", "w": 5}, {"sym": "c", "w": 2}, {"sym": "d", "w": 4}], "total": 18, "H": 1.878, "L": 1.944, "depthMax": 3, "bits": 35, "fixed": 36, "codes": [{"sym": "a", "w": 7, "code": "0"}, {"sym": "b", "w": 5, "code": "10"}, {"sym": "c", "w": 2, "code": "110"}, {"sym": "d", "w": 4, "code": "111"}], "steps": [{"forest": [{"sym": "c", "w": 2, "sel": true}, {"sym": "d", "w": 4, "sel": true}, {"sym": "b", "w": 5}, {"sym": "a", "w": 7}], "caption": "初始：把 4 个符号各看作一棵单结点树，按权值升序排好。哈夫曼的贪心选择是——每次取权值最小的两棵子树。", "detail": "接下来合并 “c”(2) 与 “d”(4)", "roots": 4, "done": false, "L": 1.944, "H": 1.878, "bits": 35, "fixed": 36, "table": "a:0  b:10  d:111  c:110"}, {"forest": [{"sym": "b", "w": 5, "sel": true}, {"w": 6, "set": "cd", "l": {"sym": "c", "w": 2}, "r": {"sym": "d", "w": 4}, "new": true, "sel": true}, {"sym": "a", "w": 7}], "caption": "第 1 步：合并最小的两棵子树 “c”(2) + “d”(4) → 新结点 “cd”(6)", "detail": "合并后森林剩 3 棵树；接下来取 “b”(5) 与 “cd”(6)", "roots": 3, "done": false, "L": 1.944, "H": 1.878, "bits": 35, "fixed": 36, "table": "a:0  b:10  d:111  c:110"}, {"forest": [{"sym": "a", "w": 7, "sel": true}, {"w": 11, "set": "bcd", "l": {"sym": "b", "w": 5}, "r": {"w": 6, "set": "cd", "l": {"sym": "c", "w": 2}, "r": {"sym": "d", "w": 4}}, "new": true, "sel": true}], "caption": "第 2 步：合并最小的两棵子树 “b”(5) + “cd”(6) → 新结点 “bcd”(11)", "detail": "合并后森林剩 2 棵树；接下来取 “a”(7) 与 “bcd”(11)", "roots": 2, "done": false, "L": 1.944, "H": 1.878, "bits": 35, "fixed": 36, "table": "a:0  b:10  d:111  c:110"}, {"forest": [{"w": 18, "set": "abcd", "l": {"sym": "a", "w": 7, "code": "0"}, "r": {"w": 11, "set": "bcd", "l": {"sym": "b", "w": 5, "code": "10"}, "r": {"w": 6, "set": "cd", "l": {"sym": "c", "w": 2, "code": "110"}, "r": {"sym": "d", "w": 4, "code": "111"}}}, "new": true}], "caption": "第 3 步：合并 “a”(7) + “bcd”(11) → 根结点 “abcd”(18)，森林只剩一棵树，编码完成", "detail": "码长随频率反向变化：频率越高码越短", "roots": 1, "done": true, "L": 1.944, "H": 1.878, "bits": 35, "fixed": 36, "table": "a:0  b:10  d:111  c:110"}]}, {"name": "斐波那契 8 符号", "desc": "极端分布：最深的码长达 7，说明码长可以接近 n-1", "freq": [{"sym": "a", "w": 1}, {"sym": "b", "w": 1}, {"sym": "c", "w": 2}, {"sym": "d", "w": 3}, {"sym": "e", "w": 5}, {"sym": "f", "w": 8}, {"sym": "g", "w": 13}, {"sym": "h", "w": 21}], "total": 54, "H": 2.371, "L": 2.444, "depthMax": 7, "bits": 132, "fixed": 162, "codes": [{"sym": "a", "w": 1, "code": "1111110"}, {"sym": "b", "w": 1, "code": "1111111"}, {"sym": "c", "w": 2, "code": "111110"}, {"sym": "d", "w": 3, "code": "11110"}, {"sym": "e", "w": 5, "code": "1110"}, {"sym": "f", "w": 8, "code": "110"}, {"sym": "g", "w": 13, "code": "10"}, {"sym": "h", "w": 21, "code": "0"}], "steps": [{"forest": [{"sym": "a", "w": 1, "sel": true}, {"sym": "b", "w": 1, "sel": true}, {"sym": "c", "w": 2}, {"sym": "d", "w": 3}, {"sym": "e", "w": 5}, {"sym": "f", "w": 8}, {"sym": "g", "w": 13}, {"sym": "h", "w": 21}], "caption": "初始：把 8 个符号各看作一棵单结点树，按权值升序排好。哈夫曼的贪心选择是——每次取权值最小的两棵子树。", "detail": "接下来合并 “a”(1) 与 “b”(1)", "roots": 8, "done": false, "L": 2.444, "H": 2.371, "bits": 132, "fixed": 162, "table": "h:0  g:10  f:110  e:1110  d:11110  c:111110  a:1111110  b:1111111"}, {"forest": [{"sym": "c", "w": 2, "sel": true}, {"w": 2, "set": "ab", "l": {"sym": "a", "w": 1}, "r": {"sym": "b", "w": 1}, "new": true, "sel": true}, {"sym": "d", "w": 3}, {"sym": "e", "w": 5}, {"sym": "f", "w": 8}, {"sym": "g", "w": 13}, {"sym": "h", "w": 21}], "caption": "第 1 步：合并最小的两棵子树 “a”(1) + “b”(1) → 新结点 “ab”(2)", "detail": "合并后森林剩 7 棵树；接下来取 “c”(2) 与 “ab”(2)", "roots": 7, "done": false, "L": 2.444, "H": 2.371, "bits": 132, "fixed": 162, "table": "h:0  g:10  f:110  e:1110  d:11110  c:111110  a:1111110  b:1111111"}, {"forest": [{"sym": "d", "w": 3, "sel": true}, {"w": 4, "set": "abc", "l": {"sym": "c", "w": 2}, "r": {"w": 2, "set": "ab", "l": {"sym": "a", "w": 1}, "r": {"sym": "b", "w": 1}}, "new": true, "sel": true}, {"sym": "e", "w": 5}, {"sym": "f", "w": 8}, {"sym": "g", "w": 13}, {"sym": "h", "w": 21}], "caption": "第 2 步：合并最小的两棵子树 “c”(2) + “ab”(2) → 新结点 “abc”(4)", "detail": "合并后森林剩 6 棵树；接下来取 “d”(3) 与 “abc”(4)", "roots": 6, "done": false, "L": 2.444, "H": 2.371, "bits": 132, "fixed": 162, "table": "h:0  g:10  f:110  e:1110  d:11110  c:111110  a:1111110  b:1111111"}, {"forest": [{"sym": "e", "w": 5, "sel": true}, {"w": 7, "set": "abcd", "l": {"sym": "d", "w": 3}, "r": {"w": 4, "set": "abc", "l": {"sym": "c", "w": 2}, "r": {"w": 2, "set": "ab", "l": {"sym": "a", "w": 1}, "r": {"sym": "b", "w": 1}}}, "new": true, "sel": true}, {"sym": "f", "w": 8}, {"sym": "g", "w": 13}, {"sym": "h", "w": 21}], "caption": "第 3 步：合并最小的两棵子树 “d”(3) + “abc”(4) → 新结点 “abcd”(7)", "detail": "合并后森林剩 5 棵树；接下来取 “e”(5) 与 “abcd”(7)", "roots": 5, "done": false, "L": 2.444, "H": 2.371, "bits": 132, "fixed": 162, "table": "h:0  g:10  f:110  e:1110  d:11110  c:111110  a:1111110  b:1111111"}, {"forest": [{"sym": "f", "w": 8, "sel": true}, {"w": 12, "set": "abcde", "l": {"sym": "e", "w": 5}, "r": {"w": 7, "set": "abcd", "l": {"sym": "d", "w": 3}, "r": {"w": 4, "set": "abc", "l": {"sym": "c", "w": 2}, "r": {"w": 2, "set": "ab", "l": {"sym": "a", "w": 1}, "r": {"sym": "b", "w": 1}}}}, "new": true, "sel": true}, {"sym": "g", "w": 13}, {"sym": "h", "w": 21}], "caption": "第 4 步：合并最小的两棵子树 “e”(5) + “abcd”(7) → 新结点 “abcde”(12)", "detail": "合并后森林剩 4 棵树；接下来取 “f”(8) 与 “abcde”(12)", "roots": 4, "done": false, "L": 2.444, "H": 2.371, "bits": 132, "fixed": 162, "table": "h:0  g:10  f:110  e:1110  d:11110  c:111110  a:1111110  b:1111111"}, {"forest": [{"sym": "g", "w": 13, "sel": true}, {"w": 20, "set": "abcdef", "l": {"sym": "f", "w": 8}, "r": {"w": 12, "set": "abcde", "l": {"sym": "e", "w": 5}, "r": {"w": 7, "set": "abcd", "l": {"sym": "d", "w": 3}, "r": {"w": 4, "set": "abc", "l": {"sym": "c", "w": 2}, "r": {"w": 2, "set": "ab", "l": {"sym": "a", "w": 1}, "r": {"sym": "b", "w": 1}}}}}, "new": true, "sel": true}, {"sym": "h", "w": 21}], "caption": "第 5 步：合并最小的两棵子树 “f”(8) + “abcde”(12) → 新结点 “abcdef”(20)", "detail": "合并后森林剩 3 棵树；接下来取 “g”(13) 与 “abcdef”(20)", "roots": 3, "done": false, "L": 2.444, "H": 2.371, "bits": 132, "fixed": 162, "table": "h:0  g:10  f:110  e:1110  d:11110  c:111110  a:1111110  b:1111111"}, {"forest": [{"sym": "h", "w": 21, "sel": true}, {"w": 33, "set": "abcdefg", "l": {"sym": "g", "w": 13}, "r": {"w": 20, "set": "abcdef", "l": {"sym": "f", "w": 8}, "r": {"w": 12, "set": "abcde", "l": {"sym": "e", "w": 5}, "r": {"w": 7, "set": "abcd", "l": {"sym": "d", "w": 3}, "r": {"w": 4, "set": "abc", "l": {"sym": "c", "w": 2}, "r": {"w": 2, "set": "ab", "l": {"sym": "a", "w": 1}, "r": {"sym": "b", "w": 1}}}}}}, "new": true, "sel": true}], "caption": "第 6 步：合并最小的两棵子树 “g”(13) + “abcdef”(20) → 新结点 “abcdefg”(33)", "detail": "合并后森林剩 2 棵树；接下来取 “h”(21) 与 “abcdefg”(33)", "roots": 2, "done": false, "L": 2.444, "H": 2.371, "bits": 132, "fixed": 162, "table": "h:0  g:10  f:110  e:1110  d:11110  c:111110  a:1111110  b:1111111"}, {"forest": [{"w": 54, "set": "abcdefgh", "l": {"sym": "h", "w": 21, "code": "0"}, "r": {"w": 33, "set": "abcdefg", "l": {"sym": "g", "w": 13, "code": "10"}, "r": {"w": 20, "set": "abcdef", "l": {"sym": "f", "w": 8, "code": "110"}, "r": {"w": 12, "set": "abcde", "l": {"sym": "e", "w": 5, "code": "1110"}, "r": {"w": 7, "set": "abcd", "l": {"sym": "d", "w": 3, "code": "11110"}, "r": {"w": 4, "set": "abc", "l": {"sym": "c", "w": 2, "code": "111110"}, "r": {"w": 2, "set": "ab", "l": {"sym": "a", "w": 1, "code": "1111110"}, "r": {"sym": "b", "w": 1, "code": "1111111"}}}}}}}, "new": true}], "caption": "第 7 步：合并 “h”(21) + “abcdefg”(33) → 根结点 “abcdefgh”(54)，森林只剩一棵树，编码完成", "detail": "码长随频率反向变化：频率越高码越短", "roots": 1, "done": true, "L": 2.444, "H": 2.371, "bits": 132, "fixed": 162, "table": "h:0  g:10  f:110  e:1110  d:11110  c:111110  a:1111110  b:1111111"}]}]};
+const NS = 'http://www.w3.org/2000/svg';
+const svg = document.getElementById('scene');
+const bar = document.getElementById('bar');
+const qs = new URLSearchParams(location.search);
+const STATIC = qs.has('static');
+
+let pi = 0, step = 0, timer = null;
+
+/* ---------------------------------------------------------- 小工具 */
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const txt = (x,y,s,size=14,fill='#0f172a',anchor='start',weight='400',cls='') =>
+  `<text class="${cls}" x="${x}" y="${y}" font-family="Microsoft YaHei,Segoe UI,Arial,sans-serif"
+     font-size="${size}" fill="${fill}" text-anchor="${anchor}" font-weight="${weight}">${esc(s)}</text>`;
+const rect = (x,y,w,h,fill,stroke,rx=10,sw=1.4,dash='') =>
+  `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="${fill}" stroke="${stroke}"
+     stroke-width="${sw}"${dash?` stroke-dasharray="${dash}"`:''}/>`;
+const line = (x1,y1,x2,y2,stroke,sw=2,dash='') =>
+  `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${stroke}" stroke-width="${sw}"
+     stroke-linecap="round"${dash?` stroke-dasharray="${dash}"`:''}/>`;
+const circ = (cx,cy,r,fill,stroke,sw=2,cls='') =>
+  `<circle class="${cls}" cx="${cx}" cy="${cy}" r="${r}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`;
+
+/* ---------------------------------------------------------- 树工具 */
+const isLeaf = t => t.sym !== undefined;
+const countLeaves = t => isLeaf(t) ? 1 : countLeaves(t.l) + countLeaves(t.r);
+const depthOf = t => isLeaf(t) ? 0 : 1 + Math.max(depthOf(t.l), depthOf(t.r));
+const setOf = t => isLeaf(t) ? t.sym : t.set;
+
+function layout(forest){
+  const n = forest.reduce((a,t) => a + countLeaves(t), 0);
+  const maxD = Math.max(...forest.map(depthOf), 1);
+  const x0 = 470, x1 = 962, topY = 84, botY = 400;
+  const slotW = (x1 - x0) / n, lh = (botY - topY) / maxD;
+  let slot = 0;
+  const recs = [], byNode = new Map();
+  function place(t, d){
+    let x;
+    if (isLeaf(t)) { x = x0 + slotW * (slot + .5); slot++; }
+    else { const a = place(t.l, d+1), b = place(t.r, d+1); x = (a + b) / 2; }
+    const rec = { t, x, y: topY + d * lh, d };
+    recs.push(rec); byNode.set(t, rec);
+    return x;
+  }
+  forest.forEach(t => place(t, 0));
+  const bounds = new Map();
+  forest.forEach(root => {
+    const sub = recs.filter(r => { let p = r.t, ok = false;
+      const walk = (node) => { if (node === root) { ok = true; return; }
+        if (!isLeaf(node)) { walk(node.l); walk(node.r); } };
+      walk(root); return ok; });
+    const xs = recs.map(r => r.x);
+    bounds.set(root, { x0: Math.min(...xs), x1: Math.max(...xs) });
+  });
+  return { recs, byNode, lh };
+}
+
+/* 某棵根子树包含的所有结点坐标 */
+function subtreeRecs(root, L){
+  const out = [];
+  (function walk(t){ const r = L.byNode.get(t); out.push(r);
+    if (!isLeaf(t)) { walk(t.l); walk(t.r); } })(root);
+  return out;
+}
+
+/* ---------------------------------------------------------- 渲染 */
+function drawCards(parts, st){
+  parts.push(txt(24, 40, '森林：当前的子树（按权值升序，最小的两棵下次合并）', 15, '#0f172a', 'start', 700));
+  const n = st.forest.length;
+  const top = 58, avail = 462 - top;
+  const ch = Math.min(56, Math.floor(avail / n) - 6);
+  const gap = 6;
+  st.forest.forEach((t, i) => {
+    const y = top + i * (ch + gap);
+    const sel = !!t.sel, isNew = !!t.new;
+    const fill = sel ? '#fff7ed' : (isNew ? '#ecfdf5' : '#f8fafc');
+    const stroke = sel ? '#f59e0b' : (isNew ? '#16a34a' : '#cbd5e1');
+    parts.push(rect(24, y, 386, ch, fill, stroke, 10, sel || isNew ? 2.4 : 1.3,
+                    sel ? '7 5' : ''));
+    const mid = y + ch / 2;
+    parts.push(txt(40, mid + 6, '“' + setOf(t) + '”', 17, '#0f172a', 'start', 700));
+    parts.push(txt(250, mid + 6, '权值 ' + t.w, 14.5, stroke === '#cbd5e1' ? '#475569' : stroke,
+                   'start', 700));
+    if (sel) parts.push(txt(392, mid + 7, i === 0 ? '①' : '②', 16, '#f59e0b', 'end', 700));
+    // “新结点”和 ①② 可能同时出现，错开横坐标，避免叠在同一位置
+    if (isNew) parts.push(txt(sel ? 348 : 392, mid + 6, '新结点', 13.5, '#16a34a', 'end', 700));
+  });
+}
+
+function drawForest(parts, st){
+  parts.push(txt(470, 40, '编码树：左 0 / 右 1，圆内数字为该子树的权值', 15, '#0f172a', 'start', 700));
+  const L = layout(st.forest);
+  // 每棵根子树的虚线外框
+  st.forest.forEach((root, i) => {
+    const rs = subtreeRecs(root, L);
+    const xs = rs.map(r => r.x), ys = rs.map(r => r.y);
+    const x0 = Math.min(...xs) - 30, x1 = Math.max(...xs) + 30;
+    const y0 = Math.min(...ys) - 34, y1 = Math.max(...ys) + 46;
+    const sel = !!root.sel;
+    parts.push(rect(x0, y0, x1 - x0, y1 - y0, sel ? 'rgba(245,158,11,.06)' : 'none',
+                    sel ? '#f59e0b' : '#e2e8f0', 12, sel ? 2 : 1.2, sel ? '8 6' : ''));
+    // 序号用圆形小徽章，和左侧卡片的 ①② 一一对应
+    parts.push(circ(x0 + 14, y0 + 14, 10, sel ? '#f59e0b' : '#e2e8f0', '#ffffff', 1.5));
+    parts.push(txt(x0 + 14, y0 + 19, '①②③④⑤⑥⑦⑧'.charAt(i), 13,
+                   sel ? '#ffffff' : '#64748b', 'middle', 700));
+  });
+  // 边
+  L.recs.forEach(r => {
+    if (isLeaf(r.t)) return;
+    [[r.t.l, '0'], [r.t.r, '1']].forEach(([k, lab]) => {
+      const kr = L.byNode.get(k);
+      parts.push(line(r.x, r.y, kr.x, kr.y, '#94a3b8', 2));
+      parts.push(txt((r.x + kr.x) / 2 + (lab === '0' ? -11 : 11), (r.y + kr.y) / 2 + 5,
+                     lab, 14, lab === '0' ? '#2563eb' : '#7c3aed', 'middle', 700));
+    });
+  });
+  // 结点
+  L.recs.forEach(r => {
+    const t = r.t, isNew = !!t.new, cls = isNew ? 'pop' : '';
+    if (isLeaf(t)) {
+      const done = t.code !== undefined;
+      parts.push(circ(r.x, r.y, 18, isNew ? '#dcfce7' : '#eff6ff',
+                      isNew ? '#16a34a' : '#2563eb', 2.4, cls));
+      parts.push(txt(r.x, r.y + 6.5, t.sym, 17, '#0f172a', 'middle', 700));
+      const below = r.y + 38;
+      parts.push(txt(r.x, below, 'w=' + t.w, 13, '#64748b', 'middle'));
+      if (done) parts.push(txt(r.x, below + 20, '码 ' + t.code, 13.5, '#16a34a', 'middle', 700));
+    } else {
+      parts.push(circ(r.x, r.y, 18, isNew ? '#dcfce7' : '#f8fafc',
+                      isNew ? '#16a34a' : '#475569', 2.4, cls));
+      parts.push(txt(r.x, r.y + 5.5, t.w, 13.5, '#0f172a', 'middle', 700));
+      if (isNew) parts.push(txt(r.x, r.y - 26, '新结点', 13, '#16a34a', 'middle', 700));
+    }
+  });
+}
+
+function drawBottom(parts, st){
+  parts.push(rect(24, 478, 952, 124, '#f8fafc', '#cbd5e1', 12, 1.3));
+  parts.push(txt(44, 508, st.caption, 16, '#0f172a', 'start', 700));
+  parts.push(txt(44, 536, st.detail, 14, '#475569'));
+  if (st.done) {
+    parts.push(txt(44, 562, '平均码长 L = ' + st.L + ' 比特（编码 ' + st.bits +
+                           ' 比特）；熵 H = ' + st.H + ' 比特；校验 H ≤ L < H+1  ✓', 14, '#2563eb'));
+    parts.push(txt(44, 586, '符号 → 码字（按频率降序）：' + st.table, 13.5, '#16a34a'));
+  } else {
+    parts.push(txt(44, 562, '已合并 ' + st.merged + ' / ' + st.totalMerges +
+                           ' 次；当前森林有 ' + st.roots + ' 棵树（合并到最后 1 棵即完成）', 14, '#64748b'));
+    parts.push(txt(44, 586, '提示：新结点权值 = 两棵子树权值之和；把所有内部结点的权值相加，恰好等于编码总位数', 13.5, '#94a3b8'));
+  }
+}
+
+function show(k){
+  const P = DATA.presets[pi];
+  step = Math.max(0, Math.min(k, P.steps.length - 1));
+  const st = P.steps[step];
+  const parts = [];
+  parts.push(rect(0, 0, 1000, 620, '#ffffff', 'none'));
+  drawCards(parts, st);
+  drawForest(parts, st);
+  drawBottom(parts, st);
+  svg.innerHTML = parts.join('');
+  if (!STATIC) {
+    document.getElementById('cnt').textContent = (step + 1) + ' / ' + P.steps.length;
+  }
+}
+
+/* ---------------------------------------------------------- 控件 */
+function buildBar(){
+  DATA.presets.forEach((P, i) => {
+    const b = document.createElement('button');
+    b.textContent = P.name;
+    b.onclick = () => { stop(); pi = i; step = 0; refresh(); };
+    b.dataset.preset = i;
+    bar.appendChild(b);
+  });
+  const sep = document.createElement('span'); sep.className = 'spacer'; bar.appendChild(sep);
+  const mk = (label, cls, fn) => { const b = document.createElement('button');
+    b.textContent = label; if (cls) b.className = cls; b.onclick = fn; bar.appendChild(b); return b; };
+  mk('⟲ 重置', '', () => { stop(); refresh(); });
+  mk('◀ 上一步', '', () => { stop(); show(step - 1); barUpdate(); });
+  window.btnPlay = mk('▶ 播放', 'pri', toggle);
+  mk('下一步 ▶', '', () => { stop(); show(step + 1); barUpdate(); });
+  const sp = document.createElement('label');
+  sp.style.fontSize = '13.5px'; sp.style.color = '#64748b';
+  sp.innerHTML = ' &nbsp;速度 <input type="range" id="sp" min="1" max="5" value="3"> &nbsp;' +
+                 '<span id="cnt"></span>';
+  bar.appendChild(sp);
+}
+function barUpdate(){
+  [...bar.querySelectorAll('button[data-preset]')].forEach(b =>
+    b.classList.toggle('on', +b.dataset.preset === pi));
+}
+function refresh(){ barUpdate(); show(step); }
+function stop(){ if (timer) { clearInterval(timer); timer = null; btnPlay.textContent = '▶ 播放'; } }
+function toggle(){
+  if (timer) { stop(); return; }
+  const P = DATA.presets[pi];
+  if (step >= P.steps.length - 1) step = 0;
+  btnPlay.textContent = '⏸ 暂停';
+  timer = setInterval(() => {
+    const P2 = DATA.presets[pi];
+    if (step >= P2.steps.length - 1) { stop(); return; }
+    show(step + 1);
+  }, [1400, 1100, 900, 700, 520][+document.getElementById('sp').value - 1]);
+}
+
+/* ---------------------------------------------------------- 启动 */
+DATA.presets.forEach(P => P.steps.forEach((s, i) => {
+  s.merged = i; s.totalMerges = P.steps.length - 1;
+}));
+if (STATIC) {
+  document.body.classList.add('static');
+  pi = +(qs.get('preset') || 0);
+  step = +(qs.get('step') || 0);
+  show(step);
+} else {
+  buildBar();
+  refresh();
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') { stop(); show(step + 1); }
+    if (e.key === 'ArrowLeft') { stop(); show(step - 1); }
+    if (e.key === ' ') { e.preventDefault(); toggle(); }
+  });
+}
+</script>
+</body>
+</html>

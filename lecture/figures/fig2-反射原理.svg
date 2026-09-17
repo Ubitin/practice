@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1010" height="672" viewBox="0 0 1010 672">
+<rect width="1010" height="672" fill="#ffffff"/>
+<defs><marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker><marker id="arwR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/></marker><marker id="arwG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/></marker></defs>
+<text x="28.0" y="42.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="21.0" fill="#0f172a" text-anchor="start" font-weight="700"><tspan>反射原理：越界路径  ⟷  从 (−1, 1) 到 (n, n) 的路径（n = 4）</tspan></text>
+<text x="28.0" y="70.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.5" fill="#64748b" text-anchor="start" font-weight="400"><tspan>把「起点到首次碰到 y = x + 1 的那一段」关于该直线作镜像，越界路径与从 (−1,1) 出发的路径一一对应</tspan></text>
+<text x="28.0" y="100.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.0" fill="#dc2626" text-anchor="start" font-weight="400"><tspan>P：路径首次碰到直线 y = x + 1 的点（唯一）</tspan></text>
+<line x1="140.0" y1="574.0" x2="140.0" y2="194.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="216.0" y1="574.0" x2="216.0" y2="194.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="292.0" y1="574.0" x2="292.0" y2="194.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="368.0" y1="574.0" x2="368.0" y2="194.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="444.0" y1="574.0" x2="444.0" y2="194.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="520.0" y1="574.0" x2="520.0" y2="194.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="596.0" y1="574.0" x2="596.0" y2="194.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="140.0" y1="574.0" x2="596.0" y2="574.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="140.0" y1="498.0" x2="596.0" y2="498.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="140.0" y1="422.0" x2="596.0" y2="422.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="140.0" y1="346.0" x2="596.0" y2="346.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="140.0" y1="270.0" x2="596.0" y2="270.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="140.0" y1="194.0" x2="596.0" y2="194.0" stroke="#dbe3ec" stroke-width="1.0" opacity="1.00"/>
+<line x1="140.0" y1="574.0" x2="596.0" y2="574.0" stroke="#475569" stroke-width="1.6" opacity="1.00"/>
+<line x1="216.0" y1="574.0" x2="216.0" y2="194.0" stroke="#475569" stroke-width="1.6" opacity="1.00"/>
+<line x1="216.0" y1="574.0" x2="596.0" y2="194.0" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="7 6" stroke-linecap="round" opacity="1.00"/>
+<line x1="140.0" y1="574.0" x2="520.0" y2="194.0" stroke="#f59e0b" stroke-width="2.6" stroke-linecap="round" opacity="1.00"/>
+<text x="514.0" y="184.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="15.0" fill="#f59e0b" text-anchor="end" font-weight="700"><tspan>y = x + 1</tspan></text>
+<polyline points="140.0,498.0 140.0,422.0 216.0,422.0 292.0,422.0" fill="none" stroke="#16a34a" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="9 6" opacity="1.00"/>
+<polyline points="216.0,574.0 292.0,574.0 292.0,498.0 292.0,422.0 368.0,422.0 444.0,422.0 444.0,346.0 520.0,346.0 520.0,270.0" fill="none" stroke="#2563eb" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round" opacity="1.00"/>
+<text x="140.0" y="594.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>-1</tspan></text>
+<text x="216.0" y="594.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>0</tspan></text>
+<text x="292.0" y="594.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>1</tspan></text>
+<text x="368.0" y="594.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>2</tspan></text>
+<text x="444.0" y="594.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>3</tspan></text>
+<text x="520.0" y="594.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>4</tspan></text>
+<text x="596.0" y="594.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="middle" font-weight="400"><tspan>5</tspan></text>
+<text x="204.0" y="578.5" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="end" font-weight="400"><tspan>0</tspan></text>
+<text x="204.0" y="502.5" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="end" font-weight="400"><tspan>1</tspan></text>
+<text x="204.0" y="426.5" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="end" font-weight="400"><tspan>2</tspan></text>
+<text x="204.0" y="350.5" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="end" font-weight="400"><tspan>3</tspan></text>
+<text x="204.0" y="274.5" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="end" font-weight="400"><tspan>4</tspan></text>
+<text x="204.0" y="198.5" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#64748b" text-anchor="end" font-weight="400"><tspan>5</tspan></text>
+<circle cx="216.0" cy="574.0" r="5.6" fill="#0f172a" stroke="#ffffff" stroke-width="1.6" opacity="1.00"/>
+<circle cx="140.0" cy="498.0" r="5.6" fill="#16a34a" stroke="#ffffff" stroke-width="1.6" opacity="1.00"/>
+<circle cx="292.0" cy="422.0" r="6.4" fill="#dc2626" stroke="#ffffff" stroke-width="1.6" opacity="1.00"/>
+<text x="280.0" y="410.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="17.0" fill="#dc2626" text-anchor="end" font-weight="700"><tspan>P</tspan></text>
+<text x="224.0" y="618.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.0" fill="#0f172a" text-anchor="start" font-weight="400"><tspan>起点 (0, 0)</tspan></text>
+<text x="34.0" y="470.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.0" fill="#16a34a" text-anchor="start" font-weight="700"><tspan>反射后的起点</tspan></text>
+<text x="34.0" y="492.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.0" fill="#16a34a" text-anchor="start" font-weight="700"><tspan>(−1, 1)</tspan></text>
+<text x="344.0" y="500.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.0" fill="#2563eb" text-anchor="start" font-weight="400"><tspan>① 起点 → P（此前未越界）</tspan></text>
+<text x="134.0" y="380.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.0" fill="#16a34a" text-anchor="start" font-weight="400"><tspan>② 关于 y = x + 1 作镜像</tspan></text>
+<line x1="170.0" y1="388.0" x2="170.0" y2="404.0" stroke="#16a34a" stroke-width="1.6" marker-end="url(#arwG)" stroke-linecap="round" opacity="1.00"/>
+<rect x="620.0" y="122.0" width="364.0" height="474.0" rx="12.0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.4" opacity="1.00"/>
+<text x="642.0" y="162.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="17.0" fill="#0f172a" text-anchor="start" font-weight="700"><tspan>计数（n = 4）</tspan></text>
+<circle cx="646.0" cy="191.0" r="3.4" fill="#0f172a" stroke="none" stroke-width="1.0" opacity="1.00"/>
+<text x="658.0" y="196.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.5" fill="#0f172a" text-anchor="start" font-weight="400"><tspan>全部路径</tspan></text>
+<text x="658.0" y="217.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.5" fill="#0f172a" text-anchor="start" font-weight="400"><tspan>C(2n, n) = C(8, 4) = 70</tspan></text>
+<circle cx="646.0" cy="243.0" r="3.4" fill="#dc2626" stroke="none" stroke-width="1.0" opacity="1.00"/>
+<text x="658.0" y="248.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.5" fill="#0f172a" text-anchor="start" font-weight="400"><tspan>坏路径（越过对角线）</tspan></text>
+<text x="658.0" y="269.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.5" fill="#dc2626" text-anchor="start" font-weight="400"><tspan>= 从 (−1, 1) 到 (n, n) 的路径数</tspan></text>
+<circle cx="646.0" cy="295.0" r="3.4" fill="#dc2626" stroke="none" stroke-width="1.0" opacity="1.00"/>
+<text x="658.0" y="300.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.5" fill="#0f172a" text-anchor="start" font-weight="400"><tspan>　↳ 需要 n+1 个 E、n−1 个 N</tspan></text>
+<text x="658.0" y="321.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.5" fill="#dc2626" text-anchor="start" font-weight="400"><tspan>C(2n, n−1) = C(8, 3) = 56</tspan></text>
+<circle cx="646.0" cy="347.0" r="3.4" fill="#2563eb" stroke="none" stroke-width="1.0" opacity="1.00"/>
+<text x="658.0" y="352.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="14.5" fill="#0f172a" text-anchor="start" font-weight="400"><tspan>合法的 Dyck 路径</tspan></text>
+<text x="658.0" y="373.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.5" fill="#2563eb" text-anchor="start" font-weight="400"><tspan>C</tspan><tspan font-size="9.4" dy="3.2">n</tspan><tspan font-size="13.5" dy="-3.2">​</tspan><tspan> = 70 − 56 = 14  ✓</tspan></text>
+<line x1="642.0" y1="422.0" x2="962.0" y2="422.0" stroke="#cbd5e1" stroke-width="1.2" opacity="1.00"/>
+<text x="642.0" y="452.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="15.5" fill="#0f172a" text-anchor="start" font-weight="700"><tspan>为什么是双射？</tspan></text>
+<text x="642.0" y="478.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.5" fill="#64748b" text-anchor="start" font-weight="400"><tspan>· 反射段与 P 之后的段拼起来，步型不变，</tspan></text>
+<text x="642.0" y="500.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.5" fill="#64748b" text-anchor="start" font-weight="400"><tspan>  仍然是一条格点路径；</tspan></text>
+<text x="642.0" y="522.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.5" fill="#64748b" text-anchor="start" font-weight="400"><tspan>· 反过来，从 (−1,1) 到 (n,n) 的任意路径，</tspan></text>
+<text x="642.0" y="544.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.5" fill="#64748b" text-anchor="start" font-weight="400"><tspan>  因 y − x − 1 由 +1 变到 −1，必经过</tspan></text>
+<text x="642.0" y="566.0" font-family="Microsoft YaHei, Segoe UI, Arial, sans-serif" font-size="13.5" fill="#64748b" text-anchor="start" font-weight="400"><tspan>  y = x + 1，取首次交点再反射即得原路径。</tspan></text>
+</svg>
