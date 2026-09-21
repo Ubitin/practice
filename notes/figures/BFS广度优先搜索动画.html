@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>广度优先搜索（BFS）· 队列与逐层扩散 动画讲解</title>
+<style>
+  :root{
+    --bg:#0f1420; --panel:#161d2b; --line:#26314a; --txt:#e6ecf7; --dim:#8fa0bd;
+    --ok:#2f9e44; --bad:#c92a2a; --cell:#1d2537; --warn:#b7791f; --deep:#2b6cb0;
+    --head:#ffd43b; --layer:#1a3a2a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:20px 22px 40px;background:var(--bg);color:var(--txt);
+       font-family:"Microsoft YaHei","Segoe UI",system-ui,sans-serif;line-height:1.6}
+  h1{font-size:19px;margin:0 0 6px}
+  .prob{background:var(--panel);border-left:4px solid #3d6ea5;border-radius:6px;
+        padding:10px 14px;margin:10px 0 14px;font-size:14px}
+  .prob b{color:#ffd43b}
+  .wrap{display:grid;grid-template-columns:auto minmax(340px,1fr);gap:16px;align-items:start}
+  @media (max-width:900px){.wrap{grid-template-columns:1fr}}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .card h3{margin:0 0 8px;font-size:14px;color:#9ec5ff}
+
+  /* ---------- 棋盘 ---------- */
+  .grid{display:grid;gap:2px;width:max-content}
+  .gd{width:52px;height:52px;display:flex;align-items:center;justify-content:center;
+      background:var(--cell);border:1px solid #223052;border-radius:5px;
+      font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;color:#33415c;
+      transition:background .18s,border-color .18s,color .18s;cursor:pointer;position:relative}
+  .gd .co{position:absolute;left:2px;top:0;font-size:9px;font-weight:400;color:#42537a}
+  .gd.unvis{color:#33415c}
+  .gd.vis{color:#c9d6ea;background:#1b2740}
+  .gd.start{color:#ffd43b;background:#3a3410;border-color:var(--warn)}
+  .gd.layer{background:var(--layer);border-color:#2f6b45}
+  .gd.cur{outline:3px solid #ffd43b;outline-offset:-3px;animation:pulse 1s ease infinite;z-index:2}
+  .gd.ok{animation:pop .45s ease;background:#1a4d28!important;color:#69db7c!important}
+  .gd.bad{animation:shake .4s ease;background:#3a1414!important}
+  .gd.hover{background:#243b5e}
+  @keyframes pulse{0%,100%{box-shadow:inset 0 0 0 0 rgba(255,212,59,0)}50%{box-shadow:inset 0 0 18px 0 rgba(255,212,59,.55)}}
+  @keyframes pop{0%{transform:scale(1.4);filter:brightness(2.2)}100%{transform:scale(1)}}
+  @keyframes shake{0%,100%{transform:translateX(0)}30%{transform:translateX(-3px)}70%{transform:translateX(3px)}}
+
+  /* ---------- 队列 ---------- */
+  .queue{display:flex;flex-wrap:wrap;gap:5px;min-height:38px;padding:6px;background:#111827;
+         border:1px dashed var(--line);border-radius:8px;align-items:flex-start}
+  .qitem{font-family:Consolas,monospace;font-size:12px;padding:2px 7px;border-radius:5px;
+         background:#22304a;color:#a9bcd8;white-space:nowrap}
+  .qitem.head{background:var(--head);color:#241d00;font-weight:700}
+  .qitem.tail{outline:1px dashed #4a8cc7}
+  .qempty{color:#54678c;font-size:12px;padding:4px}
+  .qhead{margin-top:6px;font-size:12px;color:var(--dim);font-family:Consolas,monospace}
+
+  /* ---------- 层统计 ---------- */
+  .layers{display:flex;flex-direction:column;gap:3px;font-family:Consolas,monospace;font-size:12px;max-height:190px;overflow:auto}
+  .lrow{display:grid;grid-template-columns:62px 1fr 54px;gap:8px;align-items:center;
+        padding:2px 6px;border-radius:5px;background:#131a28;color:#6a7d9e}
+  .lrow.cur{background:#3a3410;color:#ffd43b;border:1px solid var(--warn)}
+  .lrow .bar2{height:9px;background:#22304a;border-radius:3px;overflow:hidden}
+  .lrow .bar2 i{display:block;height:100%;background:#3d6ea5}
+
+  /* ---------- 状态 ---------- */
+  .status{margin:14px 0 6px;font-size:13.5px;font-family:Consolas,monospace;
+          background:#111827;border:1px dashed var(--line);border-radius:8px;padding:10px 12px;min-height:46px}
+  .status .eq{color:#ffd43b;font-weight:700}
+  .narration{font-size:13.5px;color:#c9d6ea;margin:8px 0 14px;padding-left:10px;border-left:3px solid #3d6ea5;min-height:48px}
+  .narration .act{font-weight:700}
+  .narration .a-init{color:#74c0fc}
+  .narration .a-pop{color:#ffd43b}
+  .narration .a-ok{color:#69db7c}
+  .narration .a-skip{color:#ff8787}
+  .narration .a-finish{color:#8fa0bd}
+  .narration .a-end{color:#d0bfff}
+
+  /* ---------- 控件 ---------- */
+  .controls{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+  button{background:#22304a;color:var(--txt);border:1px solid var(--line);border-radius:8px;
+         padding:7px 13px;font-size:13.5px;cursor:pointer;font-family:inherit}
+  button:hover{background:#2c3d5c}
+  button.primary{background:#2f6aa3;border-color:#4a8cc7}
+  button.on{background:#2f9e44;border-color:#51cf66;color:#08130a;font-weight:700}
+  button:disabled{opacity:.4;cursor:not-allowed}
+  input[type=range]{vertical-align:middle}
+  .bar{height:7px;background:#1b2436;border-radius:4px;overflow:hidden;margin:8px 0 12px}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,#2f6aa3,#69db7c);width:0}
+  .legend{font-size:12px;color:var(--dim);display:flex;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:middle}
+  .notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:18px}
+  .note{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13.5px}
+  .note h4{margin:0 0 6px;font-size:14px;color:#9ec5ff}
+  code{background:#1b2436;padding:1px 5px;border-radius:4px;font-size:12.5px}
+  .ok{color:#69db7c;font-weight:700}.bad{color:#ff8787;font-weight:700}
+</style>
+</head>
+<body>
+
+<h1>广度优先搜索（BFS）—— 队列与「逐层扩散」</h1>
+<div class="prob">
+  <b>例 14-4 马的遍历（洛谷 P1443）</b>：有一个 n×m 的棋盘，在某个点上有一个<b>马</b>，
+  求它到达棋盘上任意一个点<b>最少要走几步</b>。<br>
+  <b>BFS 的思路</b>：把起点放进<b>队列</b>；每次<b>取出队首</b>，把它<b>所有能一步到达</b>的、
+  还没访问过的点<b>入队</b>；如此反复直到队列为空。<br>
+  因为队列是<b>先入先出</b>的，所以点一定是<b>按离起点的步数由小到大</b>被扩展 ——
+  <b>每个点第一次被访问时拿到的步数，就是它的最短步数</b>。
+</div>
+
+<div class="wrap">
+  <div class="card">
+    <h3>棋盘（格子里是<b>最短步数</b>，「·」= 还没访问到；点格子可改起点）</h3>
+    <div class="grid" id="grid"></div>
+    <div style="margin-top:8px;font-size:13px;color:var(--dim)" id="boardinfo"></div>
+  </div>
+
+  <div style="display:grid;gap:12px">
+    <div class="card">
+      <h3>队列（先入先出；<span style="color:#ffd43b">黄色 = 队首</span>，虚线框 = 队尾）</h3>
+      <div class="queue" id="queue"></div>
+      <div class="qhead" id="qhead"></div>
+    </div>
+    <div class="card">
+      <h3>各层点数（d = 从起点走几步）</h3>
+      <div class="layers" id="layers"></div>
+    </div>
+  </div>
+</div>
+
+<div class="status" id="status"></div>
+<div class="narration" id="narration"></div>
+
+<div class="controls">
+  <button class="primary" id="play">▶ 播放</button>
+  <button id="stepF">▶| 单步</button>
+  <button id="stepB">|◀ 后退</button>
+  <button id="reset">⟲ 重置</button>
+  <span style="font-size:13px">速度</span>
+  <input type="range" id="speed" min="1" max="100" value="45" style="width:110px">
+  <button id="nextLayer">⏭ 跳完本层</button>
+  <button id="jmpEnd">⏭ 跳到结束</button>
+  <span style="margin-left:8px;font-size:13px;color:var(--dim)">走法</span>
+  <button id="mode4">上下左右(4 向)</button>
+  <button id="mode8">马(8 向)</button>
+  <span style="margin-left:8px;font-size:13px;color:var(--dim)">棋盘</span>
+  <button class="sz" data-n="4">4×4</button>
+  <button class="sz" data-n="6">6×6</button>
+  <button class="sz" data-n="8">8×8</button>
+</div>
+
+<div class="bar"><i id="bar"></i></div>
+
+<div class="legend">
+  <span><i style="background:#ffd43b"></i>正在扩展的点（队首）</span>
+  <span><i style="background:#1a4d28;border:1px solid #2f9e44"></i>刚刚入队成功</span>
+  <span><i style="background:#3a1414;border:1px solid #c92a2a"></i>越界 / 已访问（跳过）</span>
+  <span><i style="background:#1a3a2a;border:1px solid #2f6b45"></i>同一层（d 相同）</span>
+</div>
+
+<div class="notes">
+  <div class="note">
+    <h4>① 为什么 BFS 第一次到达就是最短</h4>
+    队列先入先出 ⇒ 点被取出的顺序一定是「先 d 后 d+1」。所以当某个点第一次被扩展到时，
+    前面的层（步数更少）已经全部处理完毕，<b>不可能有更短的路还没走到它</b>。
+    （DFS 没有这个性质——它可能第一次用很长的路绕到某点。）
+  </div>
+  <div class="note">
+    <h4>② 队列里装的是什么</h4>
+    装的是「<b>已发现但还没扩展</b>」的点。同一个点<b>只会入队一次</b>——
+    入队时立刻把它的 <code>ans</code> 标成步数，后面再遇到它就会被 <code>ans != -1</code> 挡住。
+  </div>
+  <div class="note">
+    <h4>③ 两种走法都看看</h4>
+    <b>上下左右(4 向)</b>：每层是一个菱形，最直观，正是教材图 14-8(a) 那种"逐层扩散"。<br>
+    <b>马(8 向)</b>：对应例 14-4 的代码，方向数组 <code>walk[8][2]</code> 有 8 组偏移。
+    两种走法下的 BFS 骨架<b>完全一样</b>，区别只在"枚举可达点"那一步。
+  </div>
+  <div class="note">
+    <h4>④ 棋盘可以点</h4>
+    直接<b>点棋盘上任意格子</b>把起点换过去，动画会立刻重算。
+    试试把起点放在角上 vs 放在正中间，看层数分布差多少。
+  </div>
+  <div class="note">
+    <h4>⑤ 本题实测规模</h4>
+    <b id="nframe">—</b>（随棋盘大小实时更新）。注意 BFS 的搜索动作数
+    <b>与"点个数的 8 倍"同阶</b>——每个点只出队一次、只枚举一遍方向，
+    这也是 BFS 复杂度 O(n·m) 的来源。
+  </div>
+</div>
+
+<script>
+/* ============ 纯逻辑（可在 node 中独立测试） ============ */
+// 例14-4 的方向数组（顺序与教材一致）
+const WALK8 = [[2,1],[1,2],[-1,2],[-2,1],[-2,-1],[-1,-2],[1,-2],[2,-1]];
+const WALK4 = [[-1,0],[1,0],[0,-1],[0,1]];
+
+function walkOf(mode) { return mode === 4 ? WALK4 : WALK8; }
+
+// 跑一遍 BFS 并记录完整轨迹
+//  动作：init 入队起点 / pop 取出队首 / try 检查一个方向 / finish 本点扩展完 / end 队列空
+function buildTrace(N, M, sx, sy, mode) {
+  const WALK = walkOf(mode);
+  const dist = Array.from({ length: N + 1 }, () => new Array(M + 1).fill(-1));
+  const frames = [];
+  const queue = [];              // {x,y,d}
+  dist[sx][sy] = 0;
+  queue.push({ x: sx, y: sy, d: 0 });
+  const snap = (f) => frames.push(Object.assign({ head: 0, qlen: queue.length, dist0: dist[sx][sy] }, f));
+  snap({ action: 'init', sx, sy, d: 0 });
+
+  let head = 0;
+  while (head < queue.length) {
+    const u = queue[head++];
+    snap({ action: 'pop', ux: u.x, uy: u.y, d: u.d, head });
+    for (let k = 0; k < WALK.length; ++k) {
+      const nx = u.x + WALK[k][0], ny = u.y + WALK[k][1];
+      let why = '';
+      if (nx < 1 || nx > N || ny < 1 || ny > M) why = 'out';
+      else if (dist[nx][ny] !== -1) why = 'vis';
+      if (why) {
+        snap({ action: 'try', ux: u.x, uy: u.y, d: u.d, k, nx, ny, ok: false, why, head });
+      } else {
+        dist[nx][ny] = u.d + 1;
+        queue.push({ x: nx, y: ny, d: u.d + 1 });
+        snap({ action: 'try', ux: u.x, uy: u.y, d: u.d, k, nx, ny, ok: true, why: '', head });
+      }
+    }
+    snap({ action: 'finish', ux: u.x, uy: u.y, d: u.d, head });
+  }
+  snap({ action: 'end', head });
+  return { N, M, sx, sy, mode, frames, dist, enqueued: queue.length };
+}
+
+const SIM = { buildTrace, walkOf, WALK4, WALK8 };
+if (typeof module !== 'undefined' && module.exports) module.exports = SIM;
+
+/* ============ 界面与动画 ============ */
+if (typeof document !== 'undefined') {
+  const $ = (id) => document.getElementById(id);
+  const gridEl = $('grid'), queueEl = $('queue'), qheadEl = $('qhead');
+  const layersEl = $('layers'), statusEl = $('status'), narrEl = $('narration');
+  const boardInfoEl = $('boardinfo'), barEl = $('bar'), btnPlay = $('play');
+
+  let N = 4, M = 4, sx = 1, sy = 1, mode = 8;
+  let TR, F, LAST, cellEls = [], layerCounts = {}, layerStart = {};
+  let idx = 0, timer = null;
+
+  function buildBoard() {
+    gridEl.style.gridTemplateColumns = 'repeat(' + M + ', 52px)';
+    gridEl.innerHTML = '';
+    cellEls = [];
+    for (let x = 1; x <= N; ++x) for (let y = 1; y <= M; ++y) {
+      const d = document.createElement('div');
+      d.className = 'gd unvis';
+      d.innerHTML = '<span class="co">' + x + ',' + y + '</span><span class="vv">·</span>';
+      d.onclick = () => { stop(); sx = x; sy = y; rebuild(); };
+      gridEl.appendChild(d);
+      cellEls.push(d);
+    }
+  }
+
+  function rebuild() {
+    TR = buildTrace(N, M, sx, sy, mode);
+    F = TR.frames; LAST = F.length - 1;
+    // 层统计：每个 d 有多少个入队点；以及每层最后一个 frame 的下标（用于"跳完本层"）
+    layerCounts = {}; layerStart = {};
+    for (let i = 0; i < F.length; ++i) {
+      const f = F[i];
+      if (f.action === 'try' && f.ok) layerCounts[f.d + 1] = (layerCounts[f.d + 1] || 0) + 1;
+      if (f.action === 'init') layerCounts[0] = 1;
+    }
+    buildBoard();
+    for (let i = 0; i < F.length; ++i) {
+      const f = F[i];
+      if (f.action === 'pop' && layerStart[f.d] === undefined) layerStart[f.d] = i;
+    }
+    $('nframe').textContent = F.length + ' 帧搜索动作（' + N + '×' + M + ' 棋盘，'
+      + (mode === 4 ? '4 向' : '8 向') + '，共 ' + TR.enqueued + ' 个点入队）';
+    idx = 0;
+    render();
+  }
+
+  /* ---------- 回放 ---------- */
+  function replay(upto) {
+    const dist = Array.from({ length: N + 1 }, () => new Array(M + 1).fill(-1));
+    const queue = [];
+    let head = 0;
+    for (let i = 0; i <= upto; ++i) {
+      const f = F[i];
+      if (f.action === 'init') {
+        dist[f.sx][f.sy] = 0;
+        queue.push({ x: f.sx, y: f.sy, d: 0 });
+      } else if (f.action === 'try' && f.ok) {
+        dist[f.nx][f.ny] = f.d + 1;
+        queue.push({ x: f.nx, y: f.ny, d: f.d + 1 });
+      } else if (f.action === 'pop') {
+        head = f.head;
+      }
+    }
+    return { dist, queue, head };
+  }
+
+  const REASON = { out: '越出棋盘边界', vis: '这个点已经访问过了（ans ≠ -1）' };
+
+  function render() {
+    const f = F[idx];
+    const st = replay(idx);
+    const { dist, queue, head } = st;
+    const fx = (f.ux !== undefined ? f.ux : f.sx), fy = (f.uy !== undefined ? f.uy : f.sy);
+    const curD = (f.d !== undefined ? f.d : 0);
+
+    /* 棋盘 */
+    let p = 0;
+    for (let x = 1; x <= N; ++x) for (let y = 1; y <= M; ++y) {
+      const el = cellEls[p++];
+      const vv = el.querySelector('.vv');
+      const v = dist[x][y];
+      el.className = 'gd ' + (v < 0 ? 'unvis' : 'vis');
+      if (x === sx && y === sy) el.classList.add('start');
+      if (v === curD && f.action !== 'end') el.classList.add('layer');
+      if (v >= 0) vv.textContent = v; else vv.textContent = '·';
+      if (f.action !== 'end' && x === fx && y === fy) el.classList.add('cur');
+      if (f.action === 'try' && f.ok && x === f.nx && y === f.ny) el.classList.add('ok');
+      if (f.action === 'try' && !f.ok && x === f.nx && y === f.ny
+          && f.nx >= 1 && f.nx <= N && f.ny >= 1 && f.ny <= M) el.classList.add('bad');
+    }
+
+    /* 队列 */
+    if (queue.length === 0) {
+      queueEl.innerHTML = '<span class="qempty">（空）</span>';
+    } else {
+      const show = queue.slice(head);
+      let html = '';
+      for (let i = 0; i < show.length; ++i) {
+        const q = show[i];
+        const cls = 'qitem' + (i === 0 ? ' head' : '') + (i === show.length - 1 ? ' tail' : '');
+        html += '<span class="' + cls + '">(' + q.x + ',' + q.y + ')<sub>d' + q.d + '</sub></span>';
+      }
+      queueEl.innerHTML = html;
+    }
+    qheadEl.textContent = '队首下标 ' + head + ' ｜ 队列长度 ' + (queue.length - head)
+                        + ' ｜ 已入队 ' + queue.length + ' 个（同一格只入队一次）';
+
+    /* 层统计 */
+    const maxD = Math.max(0, ...Object.keys(layerCounts).map(Number));
+    let lh = '';
+    for (let d = 0; d <= maxD; ++d) {
+      const c = layerCounts[d] || 0;
+      const w = Math.round(100 * c / Math.max(1, TR.enqueued));
+      lh += '<div class="lrow' + (d === curD && f.action !== 'end' ? ' cur' : '') + '">'
+          + '<span>d = ' + d + '</span>'
+          + '<span class="bar2"><i style="width:' + w + '%"></i></span>'
+          + '<span>' + c + ' 个点</span></div>';
+    }
+    layersEl.innerHTML = lh;
+
+    /* 状态 + 解说 */
+    const qlen = queue.length - head;
+    statusEl.innerHTML = '第 <span class="eq">' + idx + '</span> / 共 ' + F.length + ' 帧　'
+      + '动作 <span class="eq">' + f.action + '</span>'
+      + (f.action !== 'end' ? '　当前 d=' + curD : '')
+      + '　队首 = ' + (qlen > 0 ? '(' + queue[head].x + ',' + queue[head].y + ')' : '—')
+      + '　队列长 ' + Math.max(0, qlen)
+      + (f.action === 'try' ? '　方向 #' + (f.k + 1) + ' → (' + f.nx + ',' + f.ny + ')' : '');
+    barEl.style.width = (100 * idx / LAST).toFixed(2) + '%';
+    boardInfoEl.innerHTML = '起点 <b>(' + sx + ',' + sy + ')</b>　｜　'
+      + '已访问 <b>' + queue.length + '</b> / ' + (N * M) + ' 格　｜　'
+      + '走法 <b>' + (mode === 4 ? '上下左右 4 向' : '马 8 向') + '</b>';
+
+    let txt = '';
+    if (f.action === 'init') {
+      txt = '<span class="act a-init">【初始化】</span>把起点 (' + sx + ',' + sy + ') 入队，'
+          + '并令 <code>ans[' + sx + '][' + sy + '] = 0</code>（起点到自己是 0 步）。'
+          + '其余格子保持 <code>-1</code> 表示「还没访问到」。';
+    } else if (f.action === 'pop') {
+      txt = '<span class="act a-pop">【取出队首】</span>拿出 (' + fx + ',' + fy + ')，它的步数 d=' + curD + '。'
+          + '注意：队列是先入先出，所以现在取出的必然是<b>当前步数最小</b>的那批点之一 —— '
+          + '这就是 BFS「逐层扩散」的机制。接下来把它的每个方向都试一遍。';
+    } else if (f.action === 'try' && f.ok) {
+      txt = '<span class="act a-ok">【入队】</span>从 (' + fx + ',' + fy + ') 走方向 #' + (f.k + 1)
+          + ' 到达 (' + f.nx + ',' + f.ny + ')：在棋盘内、且还没访问过 ✓ → 入队，'
+          + '并令 <code>ans[' + f.nx + '][' + f.ny + '] = ' + (curD + 1) + '</code>。'
+          + '<b>这是它第一次被访问，所以 ' + (curD + 1) + ' 就是到它的最短步数。</b>';
+    } else if (f.action === 'try' && !f.ok) {
+      txt = '<span class="act a-skip">【跳过】</span>从 (' + fx + ',' + fy + ') 走方向 #' + (f.k + 1)
+          + ' 到 (' + f.nx + ',' + f.ny + ')：' + (REASON[f.why] || '不合法')
+          + ' → <b>不入队</b>。这一步直接省掉一整条分支。';
+    } else if (f.action === 'finish') {
+      txt = '<span class="act a-finish">【本点扩展完毕】</span>(' + fx + ',' + fy + ') 的所有方向都试过了，'
+          + '它的任务结束、彻底出队。注意此时的<b>队首已经变成下一个点</b>（同为 d=' + curD + ' 或 d=' + (curD + 1) + ' 的层）。';
+    } else if (f.action === 'end') {
+      txt = '<span class="act a-end">【队列空 → 结束】</span>所有能到达的格子都已被访问，'
+          + '共 <b>' + TR.enqueued + '</b> 个点入队（每个只入队一次），'
+          + '棋盘上的数字就是各自的最短步数。BFS 结束。';
+    }
+    narrEl.innerHTML = txt;
+
+    $('stepB').disabled = (idx === 0);
+    $('stepF').disabled = (idx === LAST);
+    btnPlay.disabled = (idx === LAST);
+  }
+
+  /* ---------- 控件 ---------- */
+  function setIdx(v) { idx = Math.max(0, Math.min(LAST, v)); render(); }
+  function stop() { if (timer) { clearInterval(timer); timer = null; btnPlay.textContent = '▶ 播放'; } }
+  function play() {
+    if (timer) { stop(); return; }
+    if (idx === LAST) setIdx(0);
+    const sp = +$('speed').value;
+    const ms = Math.round(420 - 4.1 * sp);         // 416ms ~ 10ms
+    btnPlay.textContent = '⏸ 暂停';
+    timer = setInterval(() => { if (idx >= LAST) { stop(); return; } setIdx(idx + 1); }, ms);
+  }
+  btnPlay.onclick = play;
+  $('stepF').onclick = () => { stop(); setIdx(idx + 1); };
+  $('stepB').onclick = () => { stop(); setIdx(idx - 1); };
+  $('reset').onclick = () => { stop(); setIdx(0); };
+  $('speed').oninput = () => { if (timer) { stop(); play(); } };
+  $('nextLayer').onclick = () => {
+    stop();
+    const curD = F[idx].d === undefined ? 0 : F[idx].d;
+    for (let i = idx + 1; i <= LAST; ++i) {
+      const g = F[i];
+      if (g.action === 'pop' && g.d > curD) { setIdx(i); return; }
+      if (g.action === 'end') { setIdx(LAST); return; }
+    }
+    setIdx(LAST);
+  };
+  $('jmpEnd').onclick = () => { stop(); setIdx(LAST); };
+  $('mode4').onclick = () => { stop(); mode = 4; rebuild(); };
+  $('mode8').onclick = () => { stop(); mode = 8; rebuild(); };
+  document.querySelectorAll('button.sz').forEach(b => {
+    b.onclick = () => { stop(); N = M = +b.dataset.n; sx = sy = 1; rebuild(); };
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { stop(); setIdx(idx + 1); e.preventDefault(); }
+    if (e.key === 'ArrowLeft')  { stop(); setIdx(idx - 1); e.preventDefault(); }
+    if (e.key === ' ')          { play(); e.preventDefault(); }
+  });
+
+  const hm = /f=(\d+)/.exec(location.hash || '');
+  rebuild();
+  if (hm) setIdx(Math.min(LAST, parseInt(hm[1], 10)));
+}
+</script>
+</body>
+</html>
