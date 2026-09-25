@@ -1,0 +1,1 @@
+OK: exactly 2 walls added, walls intact, 3 empty cells connected
