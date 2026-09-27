@@ -1,0 +1,4 @@
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp: In function 'std::string simple(ll, ll)':
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:7:12: error: 'gcd' was not declared in this scope
+    7 |     ll r = gcd(x,y);
+      |            ^~~

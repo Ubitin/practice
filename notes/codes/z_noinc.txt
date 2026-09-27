@@ -1,0 +1,2 @@
+D:\Program Files\w64devkit\bin/ld.exe: D:/Program Files/w64devkit/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib/libmingw32.a(lib64_libmingw32_a-crtexewin.o):crtexewin.c:(.text.startup+0xc6): undefined reference to `WinMain'
+collect2.exe: error: ld returned 1 exit status

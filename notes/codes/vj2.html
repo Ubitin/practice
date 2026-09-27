@@ -1,0 +1,248 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  (function () {
+    try {
+      const storedTheme = localStorage.getItem('theme') || 'auto';
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const effectiveTheme = storedTheme === 'auto'
+          ? (prefersDark ? 'dark' : 'light')
+          : storedTheme;
+      document.documentElement.setAttribute('data-bs-theme', effectiveTheme);
+      document.documentElement.style.setProperty('color-scheme', effectiveTheme);
+    } catch (e) {
+    }
+  })();
+</script>
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-374JLX1715"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-374JLX1715', {
+      
+    });
+  </script>
+
+
+
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="keywords" content="Online Judge, vjudge, OJ, Virtual Judge, ICPC, OnlineJudge"/>
+<meta name="robots" content="index, follow"/>
+<link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+
+    <title>NWPU XCPC 小白题单 - Virtual Judge</title>
+
+    <meta property="og:url" content="https://vjudge.net/article/11277"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="NWPU XCPC 小白题单 - Virtual Judge"/>
+
+    
+    
+        <meta property="og:description" content="Article [NWPU XCPC 小白题单] in Virtual Judge"/>
+    
+<script defer src="/static/bundle/044edcc7261708529ee7.js"></script><script defer src="/static/bundle/bffdc083c0e0f74a7130.js"></script><script defer src="/static/bundle/dfe0fa415e03722304c1.js"></script><script defer src="/static/bundle/62ed6b80a9d0e03eeb5c.js"></script><script defer src="/static/bundle/16ec07196c43ae853183.js"></script><script defer src="/static/bundle/67a7947749aa070e5b36.js"></script><script defer src="/static/bundle/0e4b20513da8bdef1e8a.js"></script><script defer src="/static/bundle/a67cdd0c4ce0bb5e079d.js"></script><script defer src="/static/bundle/35766fdc11a2f16e374b.js"></script><script defer src="/static/bundle/01fe8200228522d76212.js"></script><script defer src="/static/bundle/120ca9188f4d51e4abe2.js"></script><link href="/static/bundle/c60e0db28afb551bd5d1.css" rel="stylesheet"><link href="/static/bundle/cae864dbe41bf5199b11.css" rel="stylesheet"><link href="/static/bundle/dd67ef1079246290be4b.css" rel="stylesheet"></head>
+
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark prod" id="top-nav">
+    <button class="navbar-toggler d-sm-none" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <a class="navbar-brand" href="/">
+            <img src="/static/bundle/11b24ab2156955d8f3fa.ico" height="30"/>
+            <span data-i18n="top.nav.home"></span>
+        </a>
+        <ul class="navbar-nav top-nav-primary">
+            <li class="nav-item" id="nav-problem">
+                <a class="nav-link" href="/problem" data-i18n="top.nav.problem"></a>
+            </li>
+            <li class="nav-item" id="nav-status">
+                <a class="nav-link" href="/status" data-i18n="top.nav.status"></a>
+            </li>
+            <li class="nav-item" id="nav-contest">
+                <a class="nav-link" href="/contest" data-i18n="top.nav.contest"></a>
+            </li>
+            <li class="nav-item" id="nav-workbook">
+                <a class="nav-link" href="/workbook" data-i18n="top.nav.workbook"></a>
+            </li>
+            <li class="nav-item" id="nav-user">
+                <a class="nav-link" href="/user" data-i18n="top.nav.user"></a>
+            </li>
+            <li class="nav-item" id="nav-group">
+                <a class="nav-link" href="/group" data-i18n="top.nav.group"></a>
+            </li>
+            <li class="nav-item" id="nav-article">
+                <a class="nav-link" href="/article" data-i18n="top.nav.article"></a>
+            </li>
+            <li class="nav-item" id="nav-comment">
+                <a class="nav-link" href="/comment" data-i18n="top.nav.forum"></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="helpDropdown" data-bs-toggle="dropdown" data-i18n="top.nav.help"></a>
+                <div class="dropdown-menu dropdown-menu-start">
+                    <a class="dropdown-item" href="/article/2771">
+                        <i class="fa fa-question-circle-o"></i>
+                        <span data-i18n="top.nav.faq"></span>
+                    </a>
+                    <a class="dropdown-item" href="/article/97">
+                        <i class="fa fa-bug"></i>
+                        <span data-i18n="top.nav.bf"></span>
+                    </a>
+                    <a class="dropdown-item" href="/article/96">
+                        <i class="fa fa-lightbulb-o"></i>
+                        <span data-i18n="top.nav.suggestions"></span>
+                    </a>
+                    <a class="dropdown-item" href="javascript:void(0)" id="contact-us">
+                        <i class="fa fa-headphones"></i>
+                        <span data-i18n="top.nav.contact"></span>
+                    </a>
+                </div>
+            </li>
+            
+        </ul>
+        <ul class="navbar-nav top-nav-secondary ms-sm-auto">
+            <li class="nav-item top-nav-theme-item">
+                <a class="nav-link" href="javascript:void(0)" id="switchTheme"></a>
+            </li>
+            <li class="nav-item dropdown top-nav-locale-item">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="switchLocale" data-bs-toggle="dropdown" data-i18n="top.nav.locale"></a>
+                <div class="dropdown-menu dropdown-menu-end switch-locale-dropdown"></div>
+            </li>
+            
+                
+                
+                    <li class="nav-item top-nav-login-item">
+                        <a class="nav-link login" href="javascript:void(0)" data-i18n="top.nav.login"></a>
+                    </li>
+                    <li class="nav-item top-nav-register-item">
+                        <a class="nav-link register" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#registerModal" data-i18n="top.nav.register"></a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+</nav>
+<div id="page-panel-toggle-slot"></div>
+
+
+<div class="page-panel-toggle-host d-none">
+    <button type="button"
+            class="btn btn-outline-light page-panel-toggle article-panels-toggle d-none"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#article-left-panel"
+            aria-controls="article-left-panel">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+</div>
+
+<div class="container" id="article-container" style="margin-top: 30px"></div>
+<textarea style="display: none" name="dataJson">{"canMove":false,"workbook":{"problemsBrief":"{\"AtCoder-abc317_b\":[\"MissingNo.\",9085,\"\\u003ca class\\u003d\\\"contest-title\\\" href\\u003d\\\"https://atcoder.jp/contests/abc317\\\"\\u003eGAMEFREAK Programming Contest 2023 (AtCoder Beginner Contest 317)\\u003c/a\\u003e\",9270,9313],\"CodeForces-1845C\":[\"Strong Password\",16307,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1845\\\"\\u003eEducational Codeforces Round 151 (Rated for Div. 2)\\u003c/a\\u003e\",374,0],\"CodeForces-1934C\":[\"Find a Mine\",7782,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1934\\\"\\u003eCodeforces Round 931 (Div. 2)\\u003c/a\\u003e\",136,0],\"OpenJ_NOI-CH0106-02\":[\"陶陶摘苹果\",86362,\"NOIP2005复赛 普及组 第一题\",90194,165849],\"CodeForces-727C\":[\"Guess the Array\",10218,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/727\\\"\\u003eTechnocup 2017 - Elimination Round 1 (Unofficially Open for Everyone, Rated for Div. 2)\\u003c/a\\u003e\",926,0],\"CodeForces-1873C\":[\"Target Practice\",80538,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1873\\\"\\u003eCodeforces Round 898 (Div. 4)\\u003c/a\\u003e\",2820,0],\"CodeForces-1190A\":[\"Tokitsukaze and Discard Items\",10324,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1190\\\"\\u003eCodeforces Round 573 (Div. 1)\\u003c/a\\u003e\",717,0],\"CodeForces-689A\":[\"Mike and Cellphone\",6002,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/689\\\"\\u003eCodeforces Round 361 (Div. 2)\\u003c/a\\u003e\",665,0],\"OpenJ_NOI-CH0104-14\":[\"计算邮资\",83715,\"1858\",90484,221759],\"CodeForces-520B\":[\"Two Buttons\",74739,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/520\\\"\\u003eCodeforces Round 295 (Div. 2)\\u003c/a\\u003e\",9869,0],\"AtCoder-abc234_d\":[\"Prefix K-th Max\",4852,\"\\u003ca class\\u003d\\\"contest-title\\\" href\\u003d\\\"https://atcoder.jp/contests/abc234\\\"\\u003eAtCoder Beginner Contest 234\\u003c/a\\u003e\",6152,7532],\"CodeForces-1729D\":[\"Friends and the Restaurant\",27622,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1729\\\"\\u003eCodeforces Round 820 (Div. 3)\\u003c/a\\u003e\",1076,0],\"LibreOJ-3505\":[\"数对\",158,\"联合省选 2021 B\",46,233],\"SPOJ-HCOUPLE\":[\"Hidden Couple\",595,\"Problem Setter: Md. Ashraful Islam, Lecturer, Dept. of CSE, Varendra University\",231,1223],\"UESTC-153\":[\"虫食算\",11,\"Classic Problem\",40,0],\"DMOJ-coci11c5p2\":[\"COCI \\u0026#39;11 Contest 5 #2 Eko\",339,null,109,1016],\"OpenJ_NOI-CH0205-1789\":[\"算24\",3138,\"\",3852,12365],\"CodeForces-1476A\":[\"K-divisible Sum\",48396,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1476\\\"\\u003eEducational Codeforces Round 103 (Rated for Div. 2)\\u003c/a\\u003e\",2697,0],\"CodeForces-1856C\":[\"To Become Max\",21135,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1856\\\"\\u003eCodeforces Round 890 (Div. 2) supported by Constructor Institute\\u003c/a\\u003e\",1502,0],\"CodeForces-1876A\":[\"Helmets in Night Light\",28870,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1876\\\"\\u003eCodeforces Round 902 (Div. 1, based on COMPFEST 15 - Final Round)\\u003c/a\\u003e\",1395,0],\"AtCoder-abc244_c\":[\"Yamanote Line Game\",4965,\"\\u003ca class\\u003d\\\"contest-title\\\" href\\u003d\\\"https://atcoder.jp/contests/abc244\\\"\\u003eAtCoder Beginner Contest 244\\u003c/a\\u003e\",5606,10753],\"CodeForces-1901B\":[\"Chip and Ribbon\",18031,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1901\\\"\\u003eEducational Codeforces Round 158 (Rated for Div. 2)\\u003c/a\\u003e\",1306,0],\"CodeForces-1913C\":[\"Game with Multiset\",17168,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1913\\\"\\u003eEducational Codeforces Round 160 (Rated for Div. 2)\\u003c/a\\u003e\",421,0],\"CodeForces-1230A\":[\"Dawid and Bags of Candies\",25865,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1230\\\"\\u003eCodeforces Round 588 (Div. 2)\\u003c/a\\u003e\",3077,0],\"CodeForces-377A\":[\"Maze\",32290,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/377\\\"\\u003eCodeforces Round 222 (Div. 1)\\u003c/a\\u003e\",4935,0],\"CodeForces-1840D\":[\"Wooden Toy Festival\",16612,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1840\\\"\\u003eCodeforces Round 878 (Div. 3)\\u003c/a\\u003e\",961,0],\"Kattis-climbingworm\":[\"Climbing Worm\",2138,\"\\u003ca href\\u003d\\\"https://open.kattis.com/problem-sources/2018%20Virginia%20Tech%20High%20School%20Programming%20Contest\\\"\\u003e2018 Virginia Tech High School Programming Contest\\u003c/a\\u003e\",2405,8183],\"UniversalOJ-260\":[\"玩具谜题\",889,\"NOIP2016\",1315,0],\"CodeForces-1805C\":[\"Place for a Selfie\",14052,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1805\\\"\\u003eCodeforces Round 862 (Div. 2)\\u003c/a\\u003e\",399,0],\"CodeForces-1843E\":[\"Tracking Segments\",16472,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1843\\\"\\u003eCodeforces Round 881 (Div. 3)\\u003c/a\\u003e\",794,0],\"OpenJ_NOI-CH0111-10\":[\"River Hopscotch\",7830,\"\",8991,25400],\"SPOJ-TEST\":[\"Life, the Universe, and Everything\",233137,\"Douglas Adams, The Hitchhiker\\u0027s Guide to the Galaxy\",6510,841783],\"OpenJ_NOI-CH0110-05\":[\"分数线划定\",19823,\"NOIP2009复赛 普及组 第二题\",21999,55493],\"SPOJ-BOOKGFT\":[\"Book Gift\",1317,\"Own Problem\",275,2551],\"CodeForces-1891C\":[\"Smilo and Monsters\",20963,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1891\\\"\\u003eCodeforces Round 907 (Div. 2)\\u003c/a\\u003e\",372,0],\"OpenJ_NOI-CH0110-09\":[\"明明的随机数\",26243,\"NOIP2006复赛 普及组 第一题\",28198,57415],\"UESTC-2829\":[\"生日蛋糕\",18,\"2022 UESTC ICPC Training for String and Search Algorithm\",58,0],\"CodeForces-768B\":[\"Code For 1\",8078,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/768\\\"\\u003eDivide by Zero 2017 and Codeforces Round 399 (Div. 1 + Div. 2, combined)\\u003c/a\\u003e\",1580,0],\"CodeForces-679A\":[\"Bear and Prime 100\",17056,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/679\\\"\\u003eCodeforces Round 356 (Div. 1)\\u003c/a\\u003e\",1143,0],\"OpenJ_NOI-CH0109-06\":[\"笨小猴\",18734,\"NOIP2008复赛 提高组 第一题\",20909,53326],\"Toph-hashtag\":[\"#Hashtag\",1504,\"\\u003ca href\\u003d\\\"https://toph.co/c/lu-intra-summer-2017\\\" target\\u003d\\\"_blank\\\"\\u003eIntra LU Programming Contest Summer 2017\\u003c/a\\u003e\",1554,1814],\"CodeForces-1937C\":[\"Bitwise Operation Wizard\",84,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1937\\\"\\u003eCodeforces Round 930 (Div. 2)\\u003c/a\\u003e\",110,0],\"AtCoder-abc333_a\":[\"Three Threes \",13919,\"\\u003ca class\\u003d\\\"contest-title\\\" href\\u003d\\\"https://atcoder.jp/contests/abc333\\\"\\u003eToyota Programming Contest 2023#8（AtCoder Beginner Contest 333）\\u003c/a\\u003e\",14075,14573],\"Gym-104757I\":[\"ISBN Conversion\",481,\"\\u003ca href\\u003d\\u0027https://codeforces.com/gym/104757\\u0027 target\\u003d\\u0027_blank\\u0027\\u003e2023-2024 ICPC East North America Regional Contest (ECNA 2023)\\u003c/a\\u003e\",133,0],\"CodeForces-1721C\":[\"Min-Max Array Transformation\",15267,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1721\\\"\\u003eEducational Codeforces Round 134 (Rated for Div. 2)\\u003c/a\\u003e\",1078,0],\"CodeForces-1842B\":[\"Tenzing and Books\",22123,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1842\\\"\\u003eCodeTON Round 5 (Div. 1 + Div. 2, Rated, Prizes!)\\u003c/a\\u003e\",348,0],\"CodeForces-1886B\":[\"Fear of the Dark\",17925,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1886\\\"\\u003eEducational Codeforces Round 156 (Rated for Div. 2)\\u003c/a\\u003e\",486,0],\"Baekjoon-9881\":[\"Ski Course Design\",606,\"\\u003ca href\\u003d\\\"https://www.acmicpc.net/category/2\\\"\\u003eOlympiad\\u003c/a\\u003e\\u0026nbsp;\\u0026gt;\\u0026nbsp;\\u003ca href\\u003d\\\"https://www.acmicpc.net/category/106\\\"\\u003eUSA Computing Olympiad\\u003c/a\\u003e\\u0026nbsp;\\u0026gt;\\u0026nbsp;\\u003ca href\\u003d\\\"https://www.acmicpc.net/category/281\\\"\\u003e2013-2014 Season\\u003c/a\\u003e\\u0026nbsp;\\u0026gt;\\u0026nbsp;\\u003ca href\\u003d\\\"https://www.acmicpc.net/category/294\\\"\\u003eUSACO January 2014 Contest\\u003c/a\\u003e\\u0026nbsp;\\u0026gt;\\u0026nbsp;\\u003ca href\\u003d\\\"https://www.acmicpc.net/category/detail/1220\\\"\\u003eBronze\\u003c/a\\u003e\\u0026nbsp;1번\",695,1706],\"SPOJ-INTEST\":[\"Enormous Input Test\",13143,\"Idea put forward by Michael Mendelsohn\",1279,54724],\"AtCoder-abc243_c\":[\"Collision 2\",5199,\"\\u003ca class\\u003d\\\"contest-title\\\" href\\u003d\\\"https://atcoder.jp/contests/abc243\\\"\\u003eAtCoder Beginner Contest 243\\u003c/a\\u003e\",7405,16352],\"CodeForces-1006E\":[\"Military Problem\",12899,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1006\\\"\\u003eCodeforces Round 498 (Div. 3)\\u003c/a\\u003e\",1496,0],\"OpenJ_NOI-CH0105-45\":[\"金币\",50600,\"Rocky Mountain 2004\",53917,102934],\"OpenJ_NOI-CH0109-03\":[\"不高兴的津津\",27242,\"NOIP2004复赛 普及组 第一题\",28111,42959],\"CodeForces-1870C\":[\"Colorful Table\",13863,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1870\\\"\\u003eCodeTON Round 6 (Div. 1 + Div. 2, Rated, Prizes!)\\u003c/a\\u003e\",500,0],\"CodeForces-1486D\":[\"Max Median\",11337,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/1486\\\"\\u003eCodeforces Round 703 (Div. 2)\\u003c/a\\u003e\",1171,0],\"SPOJ-CPTTRN1\":[\"Character Patterns (Act 1)\",13375,\"\",1023,32073],\"SPOJ-DIVSUM\":[\"Divisor Summation\",22479,\"Neal Zane\",6106,129198],\"UESTC-201\":[\"Sliding Window\",209,\"POJ Monthly--2006.04.28, Ikki\",432,0],\"CodeForces-743B\":[\"Chloe and the sequence\",17107,\"\\u003ca href\\u003d\\\"https://codeforces.com/contest/743\\\"\\u003eCodeforces Round 384 (Div. 2)\\u003c/a\\u003e\",1727,0],\"OpenJ_NOI-CH0106-06\":[\"校门外的树\",65015,\"NOIP2005复赛 普及组 第二题\",69623,158399],\"SPOJ-CPTTRN2\":[\"Character Patterns (Act 2)\",9028,\"\",650,18416],\"OpenJ_NOI-CH0106-05\":[\"年龄与疾病\",60897,\"\",64584,130611],\"SPOJ-CPTTRN8\":[\"Character Patterns (Act 8)\",562,\"\",43,984]}","joined":false,"groups":{}},"managingGroups":{},"collectingGroups":[],"author":"Lightsnow","nodePath":[{"title":"","canRead":true,"localizedTitles":"","id":0}],"updateTime":1756348054000,"title":"NWPU XCPC 小白题单","dislikeCnt":4,"content":"## 写在前头\n\n这里是小白题单，用以帮助零基础同学对算法竞赛有一个较为清晰的入门路线和练习场。\n\n首先是一些学习资料和常用比赛网站：\n\n- OI Wiki：https://oi-wiki.org/ ，国内比较好的中文学习网站，可以了解比赛相关赛制和大部分比赛中需要学习的算法。对本题单来说，可以先学习从语言基础到搜索部分的内容。\n- Codeforces：https://codeforces.com/ ，全球最大的比赛平台，上面有不同等级的比赛（div1、div2、div3）。对于初学者来说，建议将本题单先大致刷得差不多了就可以开始打 div3 的比赛了。\n- Atcoder：https://atcoder.jp/ ，日本最大的比赛平台。可以先从 Atcoder Beginner Contest 开始入手。\n- 力扣：https://leetcode.cn/ ，面向求职者的刷题平台，难度总体较低，每周有力扣周赛，比较适合初学者去学习。\n\n## C++ 基础语法\n\n[problem:SPOJ-TEST]\n[problem:OpenJ_NOI-CH0109-03]\n[problem:OpenJ_NOI-CH0109-06]\n[problem:OpenJ_NOI-CH0104-14]\n[problem:OpenJ_NOI-CH0105-45]\n[problem:OpenJ_NOI-CH0106-05]\n[problem:OpenJ_NOI-CH0106-02]\n[problem:OpenJ_NOI-CH0106-06]\n[problem:AtCoder-abc333_a]\n[problem:AtCoder-abc317_b]\n[problem:Toph-hashtag]\n[problem:SPOJ-BOOKGFT]\n[problem:SPOJ-CPTTRN1]\n[problem:SPOJ-CPTTRN2]\n[problem:SPOJ-HCOUPLE]\n[problem:SPOJ-INTEST]\n\n## STL\n\n[problem:OpenJ_NOI-CH0110-09]\n[problem:OpenJ_NOI-CH0110-05]\n[problem:AtCoder-abc243_c]\n[problem:AtCoder-abc234_d]\n[problem:CodeForces-1870C]\n\n## 模拟\n\n[problem:UniversalOJ-260]\n[problem:Gym-104757I]\n[problem:Kattis-climbingworm]\n[problem:Baekjoon-9881]\n[problem:CodeForces-689A]\n[problem:CodeForces-1805C]\n\n## 递归 / 搜索\n\n[problem:OpenJ_NOI-CH0205-1789]\n[problem:UESTC-153]\n[problem:CodeForces-1230A]\n[problem:CodeForces-1006E]\n[problem:CodeForces-377A]\n[problem:CodeForces-520B]\n[problem:CodeForces-768B]\n[problem:CodeForces-743B]\n[problem:UESTC-2829]\n\n## 贪心\n\n[problem:CodeForces-1901B]\n[problem:CodeForces-1876A]\n[problem:CodeForces-1842B]\n[problem:CodeForces-1845C]\n[problem:CodeForces-1873C]\n\n## 二分\n\n[problem:OpenJ_NOI-CH0111-10]\n[problem:DMOJ-coci11c5p2]\n[problem:CodeForces-1476A]\n[problem:CodeForces-1486D]\n[problem:CodeForces-1913C]\n[problem:CodeForces-1840D]\n[problem:CodeForces-1886B]\n[problem:CodeForces-1856C]\n[problem:CodeForces-1843E]\n\n## 前缀和 / 差分 / 双指针\n\n双指针参考学习资料：https://codeforces.com/edu/course/2/lesson/9\n\n[problem:UESTC-201]\n[problem:CodeForces-1190A]\n[problem:CodeForces-1891C]\n[problem:CodeForces-1729D]\n[problem:CodeForces-1721C]\n\n## 简单交互\n\n不知道什么是交互？可以看看 [Codeforces](https://codeforces.com/blog/entry/45307) 上的说明。\n\n[problem:CodeForces-727C]\n[problem:AtCoder-abc244_c]\n[problem:CodeForces-679A]\n[problem:CodeForces-1934C]\n[problem:CodeForces-1937C]\n\n## 综合练习\n\n[problem:SPOJ-CPTTRN8]\n[problem:LibreOJ-3505]\n[problem:SPOJ-DIVSUM]","threadId":275298,"likeCnt":29,"createTime":1756348014000,"isWorkbook":true,"viewCnt":10148,"openness":2,"fav":false,"id":11277,"trustable":false,"nodeId":0}</textarea>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="body-footer">
+    <div style="margin-bottom: 8px">
+        <a href="/cdn-cgi/l/email-protection#e8819bc69d86a89999c68b8785" target="_blank">
+            <img src="/static/bundle/a7b7e5c7e94c918596f2.svg"/>
+        </a>
+        <img src="/static/bundle/fdbb90aaddd32a5ab4ad.png" class="qq" data-bs-toggle="popover" data-bs-placement="top"/>
+        <a href="https://weibo.com/u/5340553087" target="_blank">
+            <img src="/static/bundle/aae271671b3d18e15b40.svg"/>
+        </a>
+        <a href="https://space.bilibili.com/3056509/lists/3909505" target="_blank">
+            <img src="/static/bundle/ad1d62977bf56d0e0010.png"/>
+        </a>
+        <a href="https://t.me/joinchat/Erw7nRGwXN3iSCoKguVW3w" target="_blank">
+            <img src="/static/bundle/7182da66feaf3e99632a.svg"/>
+        </a>
+        <a href="https://www.facebook.com/virtualjudge/" target="_blank">
+            <img src="/static/bundle/c2687d1cf1f3e06984eb.svg"/>
+        </a>
+    </div>
+    <div id="footer-info">
+        All Copyright Reserved © 2010-2026<br/>
+        <span data-i18n="bottom.server_time"></span>: <span class="currentTimeTZ"></span>
+    </div>
+</div>
+
+
+<input name="systemVersion" type="hidden" value="1790476742454"/>
+<input name="gaId" type="hidden" value="G-374JLX1715"/>
+
+
+
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript">basePath = "";</script>
+
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"cbda702c6a634090aafa4717574879a5","r":1,"spa":2}' crossorigin="anonymous"></script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a41b25435b2f838b',t:'MTc5MDUxODc4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

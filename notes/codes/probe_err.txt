@@ -1,0 +1,17 @@
+D:\lenovo\chat_with_deepseek_harness\test_\fr_probe.cpp: In function 'int main()':
+D:\lenovo\chat_with_deepseek_harness\test_\fr_probe.cpp:12:16: warning: ignoring return value of 'std::__cxx11::basic_string<_CharT, _Traits, _Alloc> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::substr(size_type, size_type) const [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; size_type = long long unsigned int]', declared with attribute 'nodiscard' [-Wunused-result]
+   12 |     son1.substr(0, pos1); mom1.substr(pos1 + 1);
+      |     ~~~~~~~~~~~^~~~~~~~~
+In file included from D:/Program Files/w64devkit/lib/gcc/x86_64-w64-mingw32/16.2.0/include/c++/string:58,
+                 from D:/Program Files/w64devkit/lib/gcc/x86_64-w64-mingw32/16.2.0/include/c++/bitset:54,
+                 from D:/Program Files/w64devkit/lib/gcc/x86_64-w64-mingw32/16.2.0/include/c++/x86_64-w64-mingw32/bits/stdc++.h:52,
+                 from D:\lenovo\chat_with_deepseek_harness\test_\fr_probe.cpp:2:
+D:/Program Files/w64devkit/lib/gcc/x86_64-w64-mingw32/16.2.0/include/c++/bits/basic_string.h:3465:7: note: declared here
+ 3465 |       substr(size_type __pos = 0, size_type __n = npos) const
+      |       ^~~~~~
+D:\lenovo\chat_with_deepseek_harness\test_\fr_probe.cpp:12:38: warning: ignoring return value of 'std::__cxx11::basic_string<_CharT, _Traits, _Alloc> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::substr(size_type, size_type) const [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; size_type = long long unsigned int]', declared with attribute 'nodiscard' [-Wunused-result]
+   12 |     son1.substr(0, pos1); mom1.substr(pos1 + 1);
+      |                           ~~~~~~~~~~~^~~~~~~~~~
+D:/Program Files/w64devkit/lib/gcc/x86_64-w64-mingw32/16.2.0/include/c++/bits/basic_string.h:3465:7: note: declared here
+ 3465 |       substr(size_type __pos = 0, size_type __n = npos) const
+      |       ^~~~~~

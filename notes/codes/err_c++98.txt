@@ -1,0 +1,52 @@
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:3:7: error: expected nested-name-specifier before 'll'
+    3 | using ll = long long;
+      |       ^~
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:4:15: error: 'll' does not name a type
+    4 | string s1,s2; ll x1,y1,x2,y2;
+      |               ^~
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:6:15: error: 'll' was not declared in this scope
+    6 | string simple(ll x,ll y){
+      |               ^~
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:6:20: error: 'll' was not declared in this scope
+    6 | string simple(ll x,ll y){
+      |                    ^~
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:6:25: error: expected ',' or ';' before '{' token
+    6 | string simple(ll x,ll y){
+      |                         ^
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp: In function 'int main()':
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:19:13: error: 'nullptr' was not declared in this scope
+   19 |     cin.tie(nullptr);
+      |             ^~~~~~~
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:24:5: error: 'll' was not declared in this scope
+   24 |     ll pos1 = s1.find('/'); ll pos2 = s2.find('/');
+      |     ^~
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:24:31: error: expected ';' before 'pos2'
+   24 |     ll pos1 = s1.find('/'); ll pos2 = s2.find('/');
+      |                               ^~~~~
+      |                               ;
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:26:24: error: 'pos1' was not declared in this scope
+   26 |     son1 = s1.substr(0,pos1); mom1 = s1.substr(pos1 + 1);
+      |                        ^~~~
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:27:24: error: 'pos2' was not declared in this scope
+   27 |     son2 = s2.substr(0,pos2); mom2 = s2.substr(pos2 + 1);
+      |                        ^~~~
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:28:5: error: 'x1' was not declared in this scope; did you mean 's1'?
+   28 |     x1 = stoll(son1); y1 = stoll(mom1);
+      |     ^~
+      |     s1
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:28:10: error: 'stoll' was not declared in this scope
+   28 |     x1 = stoll(son1); y1 = stoll(mom1);
+      |          ^~~~~
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:28:10: note: 'std::stoll' is only available from C++11 onwards
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:28:23: error: 'y1' was not declared in this scope; did you mean 's1'?
+   28 |     x1 = stoll(son1); y1 = stoll(mom1);
+      |                       ^~
+      |                       s1
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:29:5: error: 'x2' was not declared in this scope; did you mean 's2'?
+   29 |     x2 = stoll(son2); y2 = stoll(mom2);
+      |     ^~
+      |     s2
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:29:23: error: 'y2' was not declared in this scope; did you mean 's2'?
+   29 |     x2 = stoll(son2); y2 = stoll(mom2);
+      |                       ^~
+      |                       s2

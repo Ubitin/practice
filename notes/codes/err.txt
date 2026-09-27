@@ -1,0 +1,15 @@
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp: In function 'dot wind(char)':
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:21:1: warning: control reaches end of non-void function [-Wreturn-type]
+   21 | }
+      | ^
+C:\Users\lenovo\AppData\Local\Temp\dsh-oSzPmq\ccKbRAUv.s: Assembler messages:
+C:\Users\lenovo\AppData\Local\Temp\dsh-oSzPmq\ccKbRAUv.s:225: Error: value of 6f05b59d3b20005d too large for field of 4 bytes at 0000000000000035
+C:\Users\lenovo\AppData\Local\Temp\dsh-oSzPmq\ccKbRAUv.s:229: Error: value of 6f05b59d3b20006f too large for field of 4 bytes at 000000000000004f
+C:\Users\lenovo\AppData\Local\Temp\dsh-oSzPmq\ccKbRAUv.s:232: Error: value of 6f05b59d3b200076 too large for field of 4 bytes at 000000000000005e
+C:\Users\lenovo\AppData\Local\Temp\dsh-oSzPmq\ccKbRAUv.s:235: Error: value of 6f05b59d3b20007d too large for field of 4 bytes at 000000000000006d
+C:\Users\lenovo\AppData\Local\Temp\dsh-oSzPmq\ccKbRAUv.s:238: Error: value of 6f05b59d3b20007c too large for field of 4 bytes at 000000000000007c
+C:\Users\lenovo\AppData\Local\Temp\dsh-oSzPmq\ccKbRAUv.s:273: Error: value of 6f05b59d3b200146 too large for field of 4 bytes at 000000000000011e
+C:\Users\lenovo\AppData\Local\Temp\dsh-oSzPmq\ccKbRAUv.s:275: Error: value of 6f05b59d3b20014a too large for field of 4 bytes at 000000000000012a
+C:\Users\lenovo\AppData\Local\Temp\dsh-oSzPmq\ccKbRAUv.s:301: Error: value of 6f05b59d3b2001aa too large for field of 4 bytes at 00000000000001aa
+C:\Users\lenovo\AppData\Local\Temp\dsh-oSzPmq\ccKbRAUv.s:375: Error: value of 6f05b59d3b2002e7 too large for field of 4 bytes at 00000000000002d3
+C:\Users\lenovo\AppData\Local\Temp\dsh-oSzPmq\ccKbRAUv.s:376: Error: value of 6f05b59d3b2002ee too large for field of 4 bytes at 00000000000002de

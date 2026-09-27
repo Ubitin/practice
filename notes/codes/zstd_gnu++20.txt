@@ -1,0 +1,73 @@
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:4:21: error: 'll y1' redeclared as different kind of entity
+    4 | string s1,s2; ll x1,y1,x2,y2;
+      |                     ^~
+In file included from D:/Program Files/w64devkit/lib/gcc/x86_64-w64-mingw32/16.2.0/include/c++/cmath:55,
+                 from D:/Program Files/w64devkit/lib/gcc/x86_64-w64-mingw32/16.2.0/include/c++/x86_64-w64-mingw32/bits/stdc++.h:110,
+                 from D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:1:
+D:/Program Files/w64devkit/include/math.h:312:24: note: previous declaration 'double y1(double)'
+  312 | _CRTIMP double __cdecl y1 (double) __MINGW_ATTRIB_DEPRECATED_MSVC2005;
+      |                        ^~
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp: In function 'int main()':
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:28:26: error: assignment of function 'double y1(double)'
+   28 |     x1 = stoll(son1); y1 = stoll(mom1);
+      |                       ~~~^~~~~~~~~~~~~
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:31:25: warning: the address of 'double y1(double)' will never be NULL [-Waddress]
+   31 |     cout<<"("<<x1<<"/"<<y1<<")+("<<x2<<"/"<<y2<<")="<<simple(x1 * y2 + x2 * y1,y1 * y2)<<"\n";
+      |                         ^~
+D:/Program Files/w64devkit/include/math.h:312:24: note: 'double y1(double)' declared here
+  312 | _CRTIMP double __cdecl y1 (double) __MINGW_ATTRIB_DEPRECATED_MSVC2005;
+      |                        ^~
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:31:75: error: invalid operands of types 'll' {aka 'long long int'} and 'double(double)' to binary 'operator*'
+   31 |     cout<<"("<<x1<<"/"<<y1<<")+("<<x2<<"/"<<y2<<")="<<simple(x1 * y2 + x2 * y1,y1 * y2)<<"\n";
+      |                                                                        ~~ ^ ~~
+      |                                                                        |    |
+      |                                                                        |    double(double)
+      |                                                                        ll {aka long long int}
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:31:83: error: invalid operands of types 'double(double)' and 'll' {aka 'long long int'} to binary 'operator*'
+   31 |     cout<<"("<<x1<<"/"<<y1<<")+("<<x2<<"/"<<y2<<")="<<simple(x1 * y2 + x2 * y1,y1 * y2)<<"\n";
+      |                                                                                ~~ ^ ~~
+      |                                                                                |    |
+      |                                                                                |    ll {aka long long int}
+      |                                                                                double(double)
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:32:25: warning: the address of 'double y1(double)' will never be NULL [-Waddress]
+   32 |     cout<<"("<<x1<<"/"<<y1<<")-("<<x2<<"/"<<y2<<")="<<simple(x1 * y2 - x2 * y1,y1 * y2)<<"\n";
+      |                         ^~
+D:/Program Files/w64devkit/include/math.h:312:24: note: 'double y1(double)' declared here
+  312 | _CRTIMP double __cdecl y1 (double) __MINGW_ATTRIB_DEPRECATED_MSVC2005;
+      |                        ^~
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:32:75: error: invalid operands of types 'll' {aka 'long long int'} and 'double(double)' to binary 'operator*'
+   32 |     cout<<"("<<x1<<"/"<<y1<<")-("<<x2<<"/"<<y2<<")="<<simple(x1 * y2 - x2 * y1,y1 * y2)<<"\n";
+      |                                                                        ~~ ^ ~~
+      |                                                                        |    |
+      |                                                                        |    double(double)
+      |                                                                        ll {aka long long int}
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:32:83: error: invalid operands of types 'double(double)' and 'll' {aka 'long long int'} to binary 'operator*'
+   32 |     cout<<"("<<x1<<"/"<<y1<<")-("<<x2<<"/"<<y2<<")="<<simple(x1 * y2 - x2 * y1,y1 * y2)<<"\n";
+      |                                                                                ~~ ^ ~~
+      |                                                                                |    |
+      |                                                                                |    ll {aka long long int}
+      |                                                                                double(double)
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:33:25: warning: the address of 'double y1(double)' will never be NULL [-Waddress]
+   33 |     cout<<"("<<x1<<"/"<<y1<<")*("<<x2<<"/"<<y2<<")="<<simple(x1 * x2,y1 * y2)<<"\n";
+      |                         ^~
+D:/Program Files/w64devkit/include/math.h:312:24: note: 'double y1(double)' declared here
+  312 | _CRTIMP double __cdecl y1 (double) __MINGW_ATTRIB_DEPRECATED_MSVC2005;
+      |                        ^~
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:33:73: error: invalid operands of types 'double(double)' and 'll' {aka 'long long int'} to binary 'operator*'
+   33 |     cout<<"("<<x1<<"/"<<y1<<")*("<<x2<<"/"<<y2<<")="<<simple(x1 * x2,y1 * y2)<<"\n";
+      |                                                                      ~~ ^ ~~
+      |                                                                      |    |
+      |                                                                      |    ll {aka long long int}
+      |                                                                      double(double)
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:34:25: warning: the address of 'double y1(double)' will never be NULL [-Waddress]
+   34 |     cout<<"("<<x1<<"/"<<y1<<")/("<<x2<<"/"<<y2<<")="<<simple(x1 * y2,x2 * y1)<<"\n";
+      |                         ^~
+D:/Program Files/w64devkit/include/math.h:312:24: note: 'double y1(double)' declared here
+  312 | _CRTIMP double __cdecl y1 (double) __MINGW_ATTRIB_DEPRECATED_MSVC2005;
+      |                        ^~
+D:\lenovo\chat_with_deepseek_harness\test_\01.cpp:34:73: error: invalid operands of types 'll' {aka 'long long int'} and 'double(double)' to binary 'operator*'
+   34 |     cout<<"("<<x1<<"/"<<y1<<")/("<<x2<<"/"<<y2<<")="<<simple(x1 * y2,x2 * y1)<<"\n";
+      |                                                                      ~~ ^ ~~
+      |                                                                      |    |
+      |                                                                      |    double(double)
+      |                                                                      ll {aka long long int}
