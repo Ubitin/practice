@@ -1,3 +1,4 @@
+// P1160 —— 你的代码 + 补上两行（其余结构完全保留你的写法：构造函数参数顺序 key,pre,nxt）
 #include<bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -12,22 +13,20 @@ struct node{
 
 ll n,m; ll indexx[maxn]; ll tot = 0;
 node a[maxn];
-//==================indexx[x]对应的是x号同学的节点 而a[x].key是节点x对应的同学的编号================================
 
-
-void ins_back(ll x,ll y){//把y插入到x的后面（右边）
+void ins_back(ll x,ll y){                 // 把 y 插到 x 的右边
     ll now = indexx[x];
     a[++tot] = {y,now,a[now].nxt};
     a[a[now].nxt].pre = tot;
-    a[now].nxt = tot;//刷新节点（易漏）
+    a[now].nxt = tot;                     // ★ 补上这一行
     indexx[y] = tot;
 }
 
-void ins_front(ll x,ll y){//把y插入到x的前面（左边）
+void ins_front(ll x,ll y){                // 把 y 插到 x 的左边
     ll now = indexx[x];
     a[++tot] = {y,a[now].pre,now};
     a[a[now].pre].nxt = tot;
-    a[now].pre = tot;//刷新节点（易漏）
+    a[now].pre = tot;                     // ★ 补上这一行
     indexx[y] = tot;
 }
 
@@ -62,6 +61,6 @@ int main(){
         cout<<a[now].key<<" ";
         now = a[now].nxt;
     }
-    
+
     return 0;
 }

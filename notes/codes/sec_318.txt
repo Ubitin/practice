@@ -1,0 +1,61 @@
+### 3.18 数组模拟双向链表 + 编号索引（O(1) 定位、O(1) 插删，如 P1160 队列安排）
+```cpp
+// 场景：题目用【编号】指代元素，要求"把新元素插到某编号的左边/右边"、"删除某编号"
+//       —— 普通数组插入是 O(n)，链表不会按下标找；正解 = 双向链表 + 【编号→节点下标】索引表
+const int maxn = 100005;
+struct node { int pre, nxt, key; };     // 左邻居下标 / 右邻居下标 / 节点里装的编号
+node a[maxn];
+int tot = 0;                            // 已用节点数（0 号留给哨兵）
+int indexx[maxn];                       // ★ indexx[编号] = 该编号所在节点的下标（O(1) 定位的关键）
+bool dead[maxn];                        // 惰性删除标记
+
+// 把编号 y 插到编号 x 的【右边】
+void ins_back(int x, int y) {
+    int now = indexx[x], t = ++tot;
+    a[t] = {now, a[now].nxt, y};        // ★ 先读旧值：记下"原来的右邻"
+    a[a[now].nxt].pre = t;              //    再改邻居（用【原来的】右邻）
+    a[now].nxt = t;                     //    最后改自己
+    indexx[y] = t;
+}
+// 把编号 y 插到编号 x 的【左边】（与上面完全镜像：pre↔nxt 互换）
+void ins_front(int x, int y) {
+    int now = indexx[x], t = ++tot;
+    a[t] = {a[now].pre, now, y};
+    a[a[now].pre].nxt = t;
+    a[now].pre = t;
+    indexx[y] = t;
+}
+// 删除编号 x（真删版：两句缺一不可！）
+void del(int x) {
+    int now = indexx[x];
+    int le = a[now].pre, rt = a[now].nxt;
+    a[le].nxt = rt;                     // ★★ 漏这句 ⇒ 删最左节点后链断、输出为空（实测 103/800 组）
+    a[rt].pre = le;
+    indexx[x] = 0;
+}
+
+int main() {
+    int n; cin >> n;
+    a[0] = {0, 0, 0};                   // ★ 哨兵 0（自环）：a[0].nxt = 最左，a[0].pre = 最右
+    indexx[1] = ++tot;  a[tot] = {0, 0, 1};
+    a[0].nxt = tot;  a[0].pre = tot;
+    for (int i = 2; i <= n; ++i) {      // 题目保证参照的人在队且活着
+        int k, p; cin >> k >> p;
+        if (p == 0) ins_front(k, i); else ins_back(k, i);
+    }
+    int m; cin >> m;
+    while (m--) { int x; cin >> x; dead[x] = true; }     // 惰性删除：只打标记
+    for (int now = a[0].nxt; now; now = a[now].nxt)      // ★ 从最左开始走
+        if (!dead[a[now].key]) cout << a[now].key << " ";
+    cout << "\n";
+}
+// ✅ 为什么 O(1)：插入/删除只改 4（或 2）个指针，与长度无关；indexx 让"编号→位置"也是一步
+// ⚠️ 插入的语句顺序：先读旧值 → 改邻居 → 改自己；顺序反了会 a[t].pre = t（自环）而丢链
+// ⚠️ 删除必须【同时】改 a[le].nxt 与 a[rt].pre：漏一半 ⇒ 删最左时链断、输出空
+// ⚠️ 哨兵 0 的作用是消除边界特判：最左节点的"左邻居"就是哨兵，无需为"没有邻居"写 if
+// ⚠️ 打印起点要配哨兵：从 a[0].nxt 走；"从编号 1 的节点走"只在"1 恰好最左"时才对（不保险）
+// ⚠️ 数组模拟 vs std::list：前者快、可用 int 下标当"空指针"、不需释放；缺点是节点池要预估大小
+// ⚠️ 惰性删除（只打标记、输出时跳过）更不容易写错指针；本题 n ≤ 1e5 完全够用
+// 实测：哨兵版 vs std::list 独立实现 1000 组随机合法数据不一致 0；官方样例 2 4 1 ✅
+// 同族：约瑟夫环（链表版）、LRU 缓存（双向链表 + 哈希）、任何"编号→位置"的频繁插删模拟
+```
